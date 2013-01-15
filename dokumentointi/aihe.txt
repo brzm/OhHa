@@ -1,0 +1,2 @@
+Sanakirjapeli eli suomeksi ja englanniksi sanoja, joita kaannetaan toiselle kielelle.
+Voi lisata sanoja. Tuloksia listataan tiedostoon.
