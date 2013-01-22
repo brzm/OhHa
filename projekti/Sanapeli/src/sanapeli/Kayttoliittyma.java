@@ -64,8 +64,10 @@ public class Kayttoliittyma {
     }
 
     private void pelaaPelia() throws IOException {
-        FileWriter tulokset= new FileWriter("Tulokset.txt");
+        System.out.println("'lopeta' lopettaa pelin");
+        FileWriter tulokset = new FileWriter("Tulokset.txt");
         Random arvonta = new Random();
+
         while (true) {
             int monesko = arvonta.nextInt(tutki.kuinkaMontaListassa());
             String suomeksiSana = tutki.suomeksiSana(monesko);
@@ -73,17 +75,17 @@ public class Kayttoliittyma {
 
             System.out.println("Anna englanniksi: " + suomeksiSana);
             String vastaus = lukija.nextLine();
-            
-            if(vastaus.equals("lopeta")){
+
+            if (vastaus.equals("lopeta")) {
                 break;
             }
 
             if (vastaus.equals(enkuksiSana)) {
                 System.out.println("Oikein");
-                tulokset.append(suomeksiSana+" Oikein\n");
+                tulokset.append(suomeksiSana + " Oikein\n");
             } else {
                 System.out.println("Väärin. Oikea vastaus on " + enkuksiSana);
-                tulokset.append(suomeksiSana+" Väärin\n");
+                tulokset.append(suomeksiSana + " Väärin\n");
             }
 
         }
