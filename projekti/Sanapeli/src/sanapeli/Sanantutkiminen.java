@@ -39,10 +39,14 @@ public class Sanantutkiminen {
 
     public String suomeksiSana(int i) {
         String suomi = "";
-        for (int j = 0; j < i; j++) {
-            suomi = "";
-            suomi = sanalista.keySet() + "";
-
+        int j = 0;
+        while (j < i) {
+            for (String di : sanalista.keySet()) {
+                suomi = "";
+                suomi = di + "";
+                j++;
+                break;
+            }
         }
 
         return suomi;
