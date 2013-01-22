@@ -1,5 +1,8 @@
 package sanapeli;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Kayttoliittyma {
@@ -12,7 +15,7 @@ public class Kayttoliittyma {
         this.tutki = tutki;
     }
 
-    public void kaynnista() {
+    public void kaynnista() throws IOException {
 
 
         while (true) {
@@ -60,8 +63,31 @@ public class Kayttoliittyma {
 
     }
 
-    private void pelaaPelia() {
-        System.out.println("es pärisee");
+    private void pelaaPelia() throws IOException {
+        FileWriter tulokset= new FileWriter("Tulokset.txt");
+        Random arvonta = new Random();
+        while (true) {
+            int monesko = arvonta.nextInt(tutki.kuinkaMontaListassa());
+            String suomeksiSana = tutki.suomeksiSana(monesko);
+            String enkuksiSana = tutki.englanniksiSana(suomeksiSana);
+
+            System.out.println("Anna englanniksi: " + suomeksiSana);
+            String vastaus = lukija.nextLine();
+            
+            if(vastaus.equals("lopeta")){
+                break;
+            }
+
+            if (vastaus.equals(enkuksiSana)) {
+                System.out.println("Oikein");
+                tulokset.append(suomeksiSana+" Oikein\n");
+            } else {
+                System.out.println("Väärin. Oikea vastaus on " + enkuksiSana);
+                tulokset.append(suomeksiSana+" Väärin\n");
+            }
+
+        }
+
     }
 
     private void tulostaSanat() {

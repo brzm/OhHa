@@ -1,10 +1,11 @@
 package sanapeli;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Sanapeli {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here    
 
         Sanat di = new Sanat("koira", "dog");
@@ -12,7 +13,10 @@ public class Sanapeli {
         Sanantutkiminen es = new Sanantutkiminen();
         System.out.println(di);
         System.out.println(du);
-        System.out.println(es);
+        
+        es.lisaaSanapariSanat(du);
+        es.lisaaSanapariSanat(di);
+       
         
         Scanner skanneri = new Scanner(System.in);
         Kayttoliittyma seppo = new Kayttoliittyma(skanneri, es);
