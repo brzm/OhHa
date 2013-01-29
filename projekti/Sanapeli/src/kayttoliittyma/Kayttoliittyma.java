@@ -1,6 +1,6 @@
 package kayttoliittyma;
 
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
@@ -10,12 +10,12 @@ public class Kayttoliittyma {
 
     private Scanner lukija;
     private Sanantutkiminen tutki;
-    private FileWriter tulokset ;
+    private File tulokset ;
 
     public Kayttoliittyma(Scanner scanner, Sanantutkiminen tutki) throws IOException {
         lukija = scanner;
         this.tutki = tutki;
-        tulokset = new FileWriter("Tulokset.txt");
+        tulokset = new File("Tulokset.txt");
     }
 
     public void kaynnista() throws IOException {
@@ -71,11 +71,13 @@ public class Kayttoliittyma {
 
     private void pelaaPelia() throws IOException {
         System.out.println("'lopeta' lopettaa pelin");
-        
+        StringBuilder builderi = new StringBuilder();
         Random arvonta = new Random();
+        
 
         while (true) {
             int monesko = arvonta.nextInt(tutki.kuinkaMontaListassa());
+            System.out.println(monesko);
             String suomeksiSana = tutki.suomeksiSana(monesko);
             String enkuksiSana = tutki.englanniksiSana(suomeksiSana);
 
@@ -88,10 +90,10 @@ public class Kayttoliittyma {
 
             if (vastaus.equals(enkuksiSana)) {
                 System.out.println("Oikein");
-                tulokset.append(suomeksiSana + " Oikein\n");
+                builderi.append(suomeksiSana +" Oikein\n");                
             } else {
                 System.out.println("Väärin. Oikea vastaus on " + enkuksiSana);
-                tulokset.append(suomeksiSana + " Väärin\n");
+                builderi.append(suomeksiSana + " Väärin\n");                
             }
 
         }

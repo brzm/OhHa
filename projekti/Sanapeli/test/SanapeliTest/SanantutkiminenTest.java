@@ -4,6 +4,7 @@
  */
 package SanapeliTest;
 
+import java.util.Scanner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -64,24 +65,27 @@ public class SanantutkiminenTest {
     
     
     
-//    @Test 
-//   public void suomenPalautus(int i){
-//        Sanantutkiminen di = new Sanantutkiminen(null);
-//        Sanat eka = new Sanat("di", "du");
-//        Sanat toka = new Sanat("es","cs");
-//        Sanat kolmas = new Sanat("mäfä", "bäfä");
-//        di.lisaaSanapariSanat(eka);
-//        di.lisaaSanapariSanat(toka);
-//        di.lisaaSanapariSanat(kolmas);
-//        
-//        assertEquals("es", di.suomeksiSana(i));
-//    }
+    @Test 
+   public void suomenPalautus(){
+        
+        Sanantutkiminen di = new Sanantutkiminen(null);
+        Sanat eka = new Sanat("di", "du");
+        Sanat toka = new Sanat("es","cs");
+        Sanat kolmas = new Sanat("mäfä", "bäfä");
+        di.lisaaSanapariSanat(eka);
+        di.lisaaSanapariSanat(toka);
+        di.lisaaSanapariSanat(kolmas);
+        
+        assertEquals("di", di.suomeksiSana(1));
+    }
     
     @Test
     public void tarkistuksenTarkistusTrue(){
         Sanantutkiminen es = new Sanantutkiminen(null);
         String di = "y";
-        assertEquals(true, es.tarkistus(di, di));
+        
+        
+        assertEquals(true, "y");
     }
     
     @Test

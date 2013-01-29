@@ -11,12 +11,14 @@ public class Sanapeli {
 Scanner skanneri = new Scanner(System.in);
         Sanat di = new Sanat("koira", "dog");
         Sanat du = new Sanat("kissa", "cat");
+        Sanat asdf = new Sanat("jee","es");
         Sanantutkiminen es = new Sanantutkiminen(skanneri);
         System.out.println(di);
         System.out.println(du);
         
         es.lisaaSanapariSanat(du);
         es.lisaaSanapariSanat(di);
+        es.lisaaSanapariSanat(asdf);
        
         
         

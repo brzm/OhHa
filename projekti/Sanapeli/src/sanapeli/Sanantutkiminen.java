@@ -1,6 +1,8 @@
 package sanapeli;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -42,18 +44,14 @@ public class Sanantutkiminen {
     }
 
     public String suomeksiSana(int i) {
-        String suomi = "";
-        int j = 0;
-        while (j < i) {
-            for (String di : sanalista.keySet()) {
-                suomi = "";
-                suomi = di + "";
-                j++;
-
-            }
+        
+        ArrayList<String> lista = new ArrayList<>();
+        
+        for(String di : sanalista.keySet()){
+            lista.add(di);
         }
-
-        return suomi;
+        
+        return lista.get(i);
     }
 
     public String englanniksiSana(String i) {
@@ -61,7 +59,7 @@ public class Sanantutkiminen {
         return sanalista.get(i);
     }
 
-    public void tulostaTulokset(FileWriter tiedosto) {
+    public void tulostaTulokset(File tiedosto) {
 
         while (lukija.hasNext()) {
         }
@@ -87,12 +85,12 @@ public class Sanantutkiminen {
         System.out.println("Onko oikein: suomeksi " + fin + ", englanniksi " + eng + " (y/n)");
         String teksti = lukija.nextLine();
         
-        if(teksti.length()==0){
-            tarkistus(fin, eng);
-        }
-
         if (teksti.equals("y")) {
             return true;
+        } else if(teksti.equals("n")){
+            return false;
+        } else {
+            tarkistus(fin, eng);
         }
 
         return false;
