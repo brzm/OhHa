@@ -1,18 +1,21 @@
-package sanapeli;
+package kayttoliittyma;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
+import sanapeli.Sanantutkiminen;
 
 public class Kayttoliittyma {
 
     private Scanner lukija;
     private Sanantutkiminen tutki;
+    private FileWriter tulokset ;
 
-    public Kayttoliittyma(Scanner scanner, Sanantutkiminen tutki) {
+    public Kayttoliittyma(Scanner scanner, Sanantutkiminen tutki) throws IOException {
         lukija = scanner;
         this.tutki = tutki;
+        tulokset = new FileWriter("Tulokset.txt");
     }
 
     public void kaynnista() throws IOException {
@@ -31,6 +34,8 @@ public class Kayttoliittyma {
                 break;
             } else if (komento.equals("tulosta")) {
                 tulostaSanat();
+            } else if(komento.equals("tulokset")) {
+                tulokset();
             } else {
                 continue;
             }
@@ -38,34 +43,35 @@ public class Kayttoliittyma {
     }
 
     private void annetutSanat() {
-        System.out.println("Anna suomeksi: ");
-        String suomi = lukija.nextLine();
-
-        if (suomi.length() <= 1) {
-            System.out.println("Yritä uudestaan");
-            annetutSanat();
-        }
-
-
-        System.out.println("Anna englanniksi: ");
-        String enkku = lukija.nextLine();
-
-        if (enkku.length() <= 1) {
-            System.out.println("Yritä uudestaan");
-            annetutSanat();
-        }
-
-        System.out.println("Onko oikein: suomeksi " + suomi + ", englanniksi " + enkku + " (y/n)");
-        String tarkistus = lukija.nextLine();
-        if (tarkistus.equals("y")) {
-            tutki.lisaaSanapari(suomi, enkku);
-        }
+        tutki.sanojenAntaminen();
+//        System.out.println("Anna suomeksi: ");
+//        String suomi = lukija.nextLine();
+//
+//        if (suomi.length() <= 1) {
+//            System.out.println("Yritä uudestaan");
+//            annetutSanat();
+//        }
+//
+//
+//        System.out.println("Anna englanniksi: ");
+//        String enkku = lukija.nextLine();
+//
+//        if (enkku.length() <= 1) {
+//            System.out.println("Yritä uudestaan");
+//            annetutSanat();
+//        }
+//
+//        System.out.println("Onko oikein: suomeksi " + suomi + ", englanniksi " + enkku + " (y/n)");
+//        String tarkistus = lukija.nextLine();
+//        if (tarkistus.equals("y")) {
+//            tutki.lisaaSanapari(suomi, enkku);
+//        }
 
     }
 
     private void pelaaPelia() throws IOException {
         System.out.println("'lopeta' lopettaa pelin");
-        FileWriter tulokset = new FileWriter("Tulokset.txt");
+        
         Random arvonta = new Random();
 
         while (true) {
@@ -94,5 +100,9 @@ public class Kayttoliittyma {
 
     private void tulostaSanat() {
         tutki.tulostaKaikki();
+    }
+    
+    private void tulokset(){
+        tutki.tulostaTulokset(tulokset);
     }
 }
