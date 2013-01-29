@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import sanapeli.Sanantutkiminen;
+import sovelluslogiikka.Sovelluslogiikka;
 
 public class Kayttoliittyma {
 
     private Scanner lukija;
     private Sanantutkiminen tutki;
     private File tulokset ;
+    private Sovelluslogiikka logiikka=new Sovelluslogiikka();
 
     public Kayttoliittyma(Scanner scanner, Sanantutkiminen tutki) throws IOException {
         lukija = scanner;
@@ -43,7 +45,7 @@ public class Kayttoliittyma {
     }
 
     private void annetutSanat() {
-        tutki.sanojenAntaminen();
+        logiikka.sanojenAntaminen();
 //        System.out.println("Anna suomeksi: ");
 //        String suomi = lukija.nextLine();
 //
@@ -76,10 +78,10 @@ public class Kayttoliittyma {
         
 
         while (true) {
-            int monesko = arvonta.nextInt(tutki.kuinkaMontaListassa());
+            int monesko = arvonta.nextInt(logiikka.kuinkaMontaListassa());
             System.out.println(monesko);
-            String suomeksiSana = tutki.suomeksiSana(monesko);
-            String enkuksiSana = tutki.englanniksiSana(suomeksiSana);
+            String suomeksiSana = logiikka.suomeksiSana(monesko);
+            String enkuksiSana = logiikka.englanniksiSana(suomeksiSana);
 
             System.out.println("Anna englanniksi: " + suomeksiSana);
             String vastaus = lukija.nextLine();
@@ -101,10 +103,10 @@ public class Kayttoliittyma {
     }
 
     private void tulostaSanat() {
-        tutki.tulostaKaikki();
+        logiikka.tulostaKaikki();
     }
     
     private void tulokset(){
-        tutki.tulostaTulokset(tulokset);
+        logiikka.tulostaTulokset(tulokset);
     }
 }
