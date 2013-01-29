@@ -51,11 +51,13 @@ public class SanapeliTest {
         assertEquals("Suomeksi suomi, englanniksi enkku", sanat.toString());
     }
     
+    @Test
     public void getSuomi(){
         Sanat di = new Sanat("di", "du");
         assertEquals("di", di.getSuomi());
     }
     
+    @Test
     public void getEnkku(){
         Sanat di = new Sanat("di", "es");
         assertEquals("es", di.getEnglanti());

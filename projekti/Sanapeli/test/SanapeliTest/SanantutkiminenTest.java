@@ -45,7 +45,7 @@ public class SanantutkiminenTest {
     @Test
     public void kuinkaMontaListassa(){
         
-        Sanantutkiminen di = new Sanantutkiminen();
+        Sanantutkiminen di = new Sanantutkiminen(null);
         di.lisaaSanapari("di", "du");
         di.lisaaSanapari("du", "di");
         
@@ -53,31 +53,41 @@ public class SanantutkiminenTest {
         
     }
     
+    @Test
     public void englanninPalautus(){
-        Sanantutkiminen di = new Sanantutkiminen();
+        Sanantutkiminen di = new Sanantutkiminen(null);
         
         di.lisaaSanapari("di", "du");
         
         assertEquals("du", di.englanniksiSana("di"));
     }
     
-    public void lisaaSanat(){
-        Sanat di = new Sanat("di", "du");
-        Sanantutkiminen es = new Sanantutkiminen();
-        
-        es.lisaaSanapariSanat(di);
-        
+    
+    
+//    @Test 
+//   public void suomenPalautus(int i){
+//        Sanantutkiminen di = new Sanantutkiminen(null);
+//        Sanat eka = new Sanat("di", "du");
+//        Sanat toka = new Sanat("es","cs");
+//        Sanat kolmas = new Sanat("mäfä", "bäfä");
+//        di.lisaaSanapariSanat(eka);
+//        di.lisaaSanapariSanat(toka);
+//        di.lisaaSanapariSanat(kolmas);
+//        
+//        assertEquals("es", di.suomeksiSana(i));
+//    }
+    
+    @Test
+    public void tarkistuksenTarkistusTrue(){
+        Sanantutkiminen es = new Sanantutkiminen(null);
+        String di = "y";
+        assertEquals(true, es.tarkistus(di, di));
     }
     
-    public void suomenPalautus(int i){
-        Sanantutkiminen di = new Sanantutkiminen();
-        Sanat eka = new Sanat("di", "du");
-        Sanat toka = new Sanat("es","cs");
-        Sanat kolmas = new Sanat("mäfä", "bäfä");
-        di.lisaaSanapariSanat(eka);
-        di.lisaaSanapariSanat(toka);
-        di.lisaaSanapariSanat(kolmas);
-        
-        assertEquals("es", di.suomeksiSana(i));
+    @Test
+    public void tarkistuksenTarkistusFalse(){
+        Sanantutkiminen es = new Sanantutkiminen(null);
+        String di = "n";
+        assertEquals(false, es.tarkistus(di, di));
     }
 }
