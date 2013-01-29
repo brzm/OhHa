@@ -45,7 +45,7 @@ public class Kayttoliittyma {
     }
 
     private void annetutSanat() {
-        logiikka.sanojenAntaminen();
+        tutki.sanojenAntaminen();
 //        System.out.println("Anna suomeksi: ");
 //        String suomi = lukija.nextLine();
 //
@@ -103,7 +103,7 @@ public class Kayttoliittyma {
     }
 
     private void tulostaSanat() {
-        logiikka.tulostaKaikki();
+        tutki.tulostaKaikki();
     }
     
     private void tulokset(){
