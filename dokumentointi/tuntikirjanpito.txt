@@ -2,3 +2,4 @@
 16.1 1h koodailua
 22.1 4h testit ja muuta
 28.1 2h korjailua
+29.1 4h korjailua ja koodausta
