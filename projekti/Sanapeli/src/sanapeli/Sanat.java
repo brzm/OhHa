@@ -1,6 +1,9 @@
 package sanapeli;
 
+import java.io.File;
+
 public class Sanat {
+    static File txt;
 
     private String suomi;
     private String englanti;
