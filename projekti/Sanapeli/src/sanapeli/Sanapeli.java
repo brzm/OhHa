@@ -15,8 +15,7 @@ public class Sanapeli {
         Sanat du = new Sanat("kissa", "cat");
         
 
-        System.out.println(di);
-        System.out.println(du);
+        
 
 
 

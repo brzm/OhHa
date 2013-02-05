@@ -1,28 +1,30 @@
 package sovelluslogiikka;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Scanner;
 import sanapeli.Sanat;
 
 public class Sovelluslogiikka {
 
     private Map<String, String> sanalista = new HashMap<>();
-    private FileWriter kirjoittaja;
-    private File tiedostoSanat;
+    private File tulokset;
+    private File sanatTiedosto;
 
     public Sovelluslogiikka() throws IOException {
-        kirjoittaja = new FileWriter("Tulokset.txt");
-        tiedostoSanat = new File("Sanat.txt");
+
+        tulokset = new File("Tulokset.txt");
+
+        sanatTiedosto= new File("Sanat.txt");
     }
 
     public String suomeksiSana(int i) {
@@ -35,7 +37,12 @@ public class Sovelluslogiikka {
 
         return lista.get(i);
     }
-
+/**
+ * palauttaa englanniksi parametrina saadun arvon 
+ * 
+ * @param i parametri :D
+ * @return englanniksi sana
+ */
     public String englanniksiSana(String i) {
 
         return sanalista.get(i);
@@ -70,7 +77,6 @@ public class Sovelluslogiikka {
     public void tulostaKaikki() {
         System.out.println("Sanoja yhteensä: " + sanalista.size());
         for (String di : sanalista.keySet()) {
-
             System.out.println(di + " : " + sanalista.get(di));
         }
 
@@ -126,17 +132,21 @@ public class Sovelluslogiikka {
     }
 
     public void tuloksienListaaminenOikein(String suomi) throws IOException {
-        kirjoittaja.append(suomi + " oikein\n");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tulokset));
+        bw.write(suomi+" oikein");
+        bw.close();
 
     }
 
     public void tuloksienListaaminenVaarin(String suomi) throws IOException {
-        kirjoittaja.append(suomi + " väärin\n");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tulokset));
+        bw.write(suomi+" väärin");
+        bw.close();
 
     }
 
     public void tuloksienLukeminen() throws FileNotFoundException {
-        Scanner lukija = new Scanner("Tulokset.txt");
+        Scanner lukija = new Scanner(tulokset);
 
         while (lukija.hasNextLine()) {
             String rivi = lukija.nextLine();
@@ -144,25 +154,26 @@ public class Sovelluslogiikka {
         }
     }
 
-    public void sanatTiedostosta() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void sanatTiedostosta() throws FileNotFoundException, IOException {
 
-        FileInputStream fis = new FileInputStream(tiedostoSanat);
-        ObjectInputStream ois = new ObjectInputStream(fis);
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(sanat));
 
-        ois.close();
-        fis.close();
+        for (String key : properties.stringPropertyNames()) {
+            sanalista.put(key, properties.get(key).toString());
+        }
 
     }
 
     public void sanatTiedostoon() throws FileNotFoundException, IOException {
 
-        FileOutputStream fos = new FileOutputStream(tiedostoSanat);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        Properties properties = new Properties();
 
-        oos.writeObject(sanalista);
-        oos.flush();
-        oos.close();
-        fos.close();
+        for (Map.Entry<String, String> entry : sanalista.entrySet()) {
+            properties.put(entry.getKey(), entry.getValue());
+        }
+
+        properties.store(new FileOutputStream("Sanat"), null);
 
     }
 }
