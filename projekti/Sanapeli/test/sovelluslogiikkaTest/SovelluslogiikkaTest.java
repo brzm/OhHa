@@ -101,11 +101,21 @@ public class SovelluslogiikkaTest {
 
         assertEquals(true, di.onkoJoListalla("es"));
     }
-    
+
     @Test
-    public void eiListalla(){
+    public void eiListalla() {
         di.lisaaSanapari("di", "du");
         di.lisaaSanapari("es", "cs");
         assertEquals(false, di.onkoJoListalla("fdsadfdfas"));
+    }
+
+    @Test
+    public void onTyhjaSana() {
+        assertEquals(false, di.eiTyhjiaSanoja("", "es"));
+    }
+    
+    @Test
+    public void eiTyhjaSana(){
+        assertEquals(true, di.eiTyhjiaSanoja("es", "cs"));
     }
 }

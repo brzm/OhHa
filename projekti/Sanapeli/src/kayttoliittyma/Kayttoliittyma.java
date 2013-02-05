@@ -29,6 +29,7 @@ public class Kayttoliittyma {
             } else if (komento.equals("pelaa")) {
                 pelaaPelia();
             } else if (komento.equals("lopeta")) {
+                logiikka.sanatTiedostoon();
                 System.out.println("Kiitos näkemiin.");
                 break;
             } else if (komento.equals("tulosta")) {

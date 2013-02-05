@@ -18,9 +18,11 @@ public class Sovelluslogiikka {
 
     private Map<String, String> sanalista = new HashMap<>();
     private FileWriter kirjoittaja;
+    private File tiedostoSanat;
 
     public Sovelluslogiikka() throws IOException {
         kirjoittaja = new FileWriter("Tulokset.txt");
+        tiedostoSanat = new File("Sanat.txt");
     }
 
     public String suomeksiSana(int i) {
@@ -76,16 +78,27 @@ public class Sovelluslogiikka {
 
     public void sanojenAntaminen(String suomi, String enkku) {
 
-
-        if (tarkistus(suomi, enkku) == true) {
+        if (tarkistus(suomi, enkku)) {
             lisaaSanapari(suomi, enkku);
         }
     }
 
+    public boolean eiTyhjiaSanoja(String fin, String eng) {
+        if (fin.equals("") || eng.equals("")) {
+            System.out.println("Pitää kirjoittaa jotakin");
+            return false;
+        }
+        return true;
+    }
+
     public boolean tarkistus(String fin, String eng) {
-        Scanner lukija = new Scanner(System.in);
-        System.out.println("Onko oikein: suomeksi " + fin + ", englanniksi " + eng + " (y/n)");
-        String teksti = lukija.nextLine();
+        String teksti = "";
+        if (eiTyhjiaSanoja(fin, eng)) {
+            Scanner lukija = new Scanner(System.in);
+            System.out.println("Onko oikein: suomeksi " + fin + ", englanniksi " + eng + " (y/n)");
+            teksti = lukija.nextLine();
+        }
+
 
         return mikaMerkki(teksti);
     }
@@ -103,7 +116,7 @@ public class Sovelluslogiikka {
             System.out.println("Oikein");
             tuloksienListaaminenOikein(suomi);
         } else {
-            System.out.println("Väärin, oikea vastaus on " +enkku);
+            System.out.println("Väärin, oikea vastaus on " + enkku);
             tuloksienListaaminenVaarin(suomi);
         }
     }
@@ -131,19 +144,19 @@ public class Sovelluslogiikka {
         }
     }
 
-    public void sanatTiedostosta(File tiedosto) throws FileNotFoundException, IOException, ClassNotFoundException {
-        
-        FileInputStream fis = new FileInputStream(tiedosto);
+    public void sanatTiedostosta() throws FileNotFoundException, IOException, ClassNotFoundException {
+
+        FileInputStream fis = new FileInputStream(tiedostoSanat);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        
+
         ois.close();
         fis.close();
-        
+
     }
 
     public void sanatTiedostoon() throws FileNotFoundException, IOException {
-        File tiedosto = new File("Sanat.txt");
-        FileOutputStream fos = new FileOutputStream(tiedosto);
+
+        FileOutputStream fos = new FileOutputStream(tiedostoSanat);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(sanalista);

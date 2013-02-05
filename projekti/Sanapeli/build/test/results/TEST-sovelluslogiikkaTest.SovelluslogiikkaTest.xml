@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="BRZM-PC" name="sovelluslogiikkaTest.SovelluslogiikkaTest" tests="8" time="0.062" timestamp="2013-02-03T20:07:49">
+<testsuite errors="0" failures="0" hostname="BRZM-PC" name="sovelluslogiikkaTest.SovelluslogiikkaTest" tests="10" time="0.091" timestamp="2013-02-05T09:38:52">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="FI" />
@@ -60,7 +60,7 @@
     <property name="manifest.available+main.class" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner sovelluslogiikkaTest.SovelluslogiikkaTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\BRZM\OhHa\projekti\Sanapeli\build\test\results\TEST-sovelluslogiikkaTest.SovelluslogiikkaTest.xml crashfile=C:\Users\BRZM\OhHa\projekti\Sanapeli\build\junitvmwatcher2202902311690906798.properties propsfile=C:\Users\BRZM\OhHa\projekti\Sanapeli\build\junit1415227322849676557.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner sovelluslogiikkaTest.SovelluslogiikkaTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\BRZM\OhHa\projekti\Sanapeli\build\test\results\TEST-sovelluslogiikkaTest.SovelluslogiikkaTest.xml crashfile=C:\Users\BRZM\OhHa\projekti\Sanapeli\build\junitvmwatcher7653485515062504878.properties propsfile=C:\Users\BRZM\OhHa\projekti\Sanapeli\build\junit5728413293961721080.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -411,15 +411,18 @@
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="onListalla" time="0.002" />
-  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="listanKoko" time="0.0" />
-  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="merkkiY" time="0.0" />
-  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="eiListalla" time="0.0" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="englanninPalautus" time="0.002" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="suomenPalautus" time="0.002" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="suomenPalautus2" time="0.0" />
   <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="merkkiN" time="0.0" />
-  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="englanninPalautus" time="0.0" />
-  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="suomenPalautus" time="0.0" />
-  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="suomenPalautus2" time="0.001" />
-  <system-out><![CDATA[Sana on jo listalla
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="listanKoko" time="0.0" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="eiListalla" time="0.0" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="onTyhjaSana" time="0.0" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="onListalla" time="0.0" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="merkkiY" time="0.0" />
+  <testcase classname="sovelluslogiikkaTest.SovelluslogiikkaTest" name="eiTyhjaSana" time="0.0" />
+  <system-out><![CDATA[Pit?? kirjoittaa jotakin
+Sana on jo listalla
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

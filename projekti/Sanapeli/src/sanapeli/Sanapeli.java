@@ -23,7 +23,7 @@ public class Sanapeli {
         Sovelluslogiikka pom = new Sovelluslogiikka();
         pom.lisaaSanapariSanat(du);
         pom.lisaaSanapariSanat(di);
-        pom.sanatTiedostosta(Sanat.txt);
+        pom.sanatTiedostosta();
 
         Kayttoliittyma seppo = new Kayttoliittyma(skanneri);
         seppo.kaynnista();
