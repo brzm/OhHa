@@ -1,11 +1,9 @@
 package sovelluslogiikka;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,17 +12,28 @@ import java.util.Properties;
 import java.util.Scanner;
 import sanapeli.Sanat;
 
+/**
+ * hoitaa Kayttoliittyman metodeja
+ *
+ * @author BRZM
+ */
 public class Sovelluslogiikka {
 
     private Map<String, String> sanalista = new HashMap<>();
-    private File tulokset;
-    private File sanatTiedosto;
+//    private File tulokset;
+//    private File sanatTiedosto;
+    private ArrayList<String> vastaukset = new ArrayList<>();
+    private int kuinkamontaoikein = 0;
 
     public Sovelluslogiikka() throws IOException {
 
-        tulokset = new File("Tulokset.txt");
+//        tulokset = new File("Tulokset.txt");
+//        sanatTiedosto = new File("Sanat.txt");
 
-        sanatTiedosto= new File("Sanat.txt");
+    }
+    
+    public Map annaSanalista(){
+        return sanalista;
     }
 
     public String suomeksiSana(int i) {
@@ -37,24 +46,36 @@ public class Sovelluslogiikka {
 
         return lista.get(i);
     }
-/**
- * palauttaa englanniksi parametrina saadun arvon 
- * 
- * @param i parametri :D
- * @return englanniksi sana
- */
+
+    /**
+     * palauttaa englanniksi parametrina saadun arvon
+     *
+     * @param i parametri :D
+     * @return englanniksi sana
+     */
     public String englanniksiSana(String i) {
 
         return sanalista.get(i);
     }
 
+    /**
+     * lisää sanaparin sanalistaan
+     *
+     * @param suomi
+     * @param englanti
+     */
     public void lisaaSanapari(String suomi, String englanti) {
         if (onkoJoListalla(suomi) == false) {
             sanalista.put(suomi, englanti);
         }
-
     }
 
+    /**
+     * jos listalta löytyy jo annettu arvo, sitä ei lisätä uudestaan
+     *
+     * @param suomi
+     * @return true, jos listalla on jo arvo
+     */
     public boolean onkoJoListalla(String suomi) {
         for (String di : sanalista.keySet()) {
             if (suomi.equals(di)) {
@@ -89,6 +110,13 @@ public class Sovelluslogiikka {
         }
     }
 
+    /**
+     * pakko kirjoittaa jotakin, eikä voi jättää sanoja "tyhjiksi"
+     *
+     * @param fin
+     * @param eng
+     * @return true jos ei ole listalla
+     */
     public boolean eiTyhjiaSanoja(String fin, String eng) {
         if (fin.equals("") || eng.equals("")) {
             System.out.println("Pitää kirjoittaa jotakin");
@@ -97,7 +125,15 @@ public class Sovelluslogiikka {
         return true;
     }
 
+    /**
+     * tarkistaa onko annetut sanat oikein
+     *
+     * @param fin
+     * @param eng
+     * @return true jos on oikein
+     */
     public boolean tarkistus(String fin, String eng) {
+
         String teksti = "";
         if (eiTyhjiaSanoja(fin, eng)) {
             Scanner lukija = new Scanner(System.in);
@@ -109,6 +145,12 @@ public class Sovelluslogiikka {
         return mikaMerkki(teksti);
     }
 
+    /**
+     * tarkistaa annetun merkin, ja lisätäänkö sanapari listaan
+     *
+     * @param merkki
+     * @return true jos y
+     */
     public boolean mikaMerkki(String merkki) {
         if (merkki.equals("y")) {
             return true;
@@ -132,48 +174,47 @@ public class Sovelluslogiikka {
     }
 
     public void tuloksienListaaminenOikein(String suomi) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(tulokset));
-        bw.write(suomi+" oikein");
-        bw.close();
-
+        vastaukset.add(suomi + " oikein");
+        kuinkamontaoikein++;
     }
 
     public void tuloksienListaaminenVaarin(String suomi) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(tulokset));
-        bw.write(suomi+" väärin");
-        bw.close();
+        vastaukset.add(suomi + " väärin");
+    }
 
+    private int kuinkaMontaVaarin() {
+        return vastaukset.size() - kuinkamontaoikein;
     }
 
     public void tuloksienLukeminen() throws FileNotFoundException {
-        Scanner lukija = new Scanner(tulokset);
+        System.out.println("Yhteensä: " + vastaukset.size());
+        System.out.println("Oikein: " + kuinkamontaoikein);
+        System.out.println("Väärin: " + kuinkaMontaVaarin());
 
-        while (lukija.hasNextLine()) {
-            String rivi = lukija.nextLine();
-            System.out.println(rivi);
+        for (String di : vastaukset) {
+            System.out.println(di);
         }
     }
 
-    public void sanatTiedostosta() throws FileNotFoundException, IOException {
-
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(sanat));
-
-        for (String key : properties.stringPropertyNames()) {
-            sanalista.put(key, properties.get(key).toString());
-        }
-
-    }
-
-    public void sanatTiedostoon() throws FileNotFoundException, IOException {
-
-        Properties properties = new Properties();
-
-        for (Map.Entry<String, String> entry : sanalista.entrySet()) {
-            properties.put(entry.getKey(), entry.getValue());
-        }
-
-        properties.store(new FileOutputStream("Sanat"), null);
-
-    }
+//    public void sanatTiedostosta() throws FileNotFoundException, IOException {
+//
+//        Properties properties = new Properties();
+//        properties.load(new FileInputStream(sanatTiedosto));
+//
+//        for (String key : properties.stringPropertyNames()) {
+//            sanalista.put(key, properties.get(key).toString());
+//        }
+//    }
+//
+//    public void sanatTiedostoon() throws FileNotFoundException, IOException {
+//
+//        Properties properties = new Properties();
+//
+//        for (Map.Entry<String, String> entry : sanalista.entrySet()) {
+//            properties.put(entry.getKey(), entry.getValue());
+//        }
+//
+//        properties.store(new FileOutputStream(sanatTiedosto), null);
+//
+//    }
 }

@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import sovelluslogiikka.Sovelluslogiikka;
-
+/**
+ * Hoitaa printtaukset ja komennot
+ * @author BRZM
+ */
 public class Kayttoliittyma {
 
     private Scanner lukija;
     private Sovelluslogiikka logiikka;
+    private Tiedostot tiedostot=new Tiedostot();
 
     public Kayttoliittyma(Scanner scanner) throws IOException {
         lukija = scanner;
@@ -29,7 +33,7 @@ public class Kayttoliittyma {
             } else if (komento.equals("pelaa")) {
                 pelaaPelia();
             } else if (komento.equals("lopeta")) {
-                logiikka.sanatTiedostoon();
+                tiedostot.sanatTiedostoon();
                 System.out.println("Kiitos näkemiin.");
                 break;
             } else if (komento.equals("tulosta")) {
@@ -51,6 +55,10 @@ public class Kayttoliittyma {
                 
         logiikka.sanojenAntaminen(suomi,enkku);
 
+    }
+    
+    public void onkoOikein(){
+        System.out.println("es");
     }
     
     

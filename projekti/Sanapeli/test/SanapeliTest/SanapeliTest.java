@@ -5,7 +5,6 @@ package SanapeliTest;
  * and open the template in the editor.
  */
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
