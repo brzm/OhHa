@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import kayttoliittyma.Kayttoliittyma;
-import kayttoliittyma.Tiedostot;
 import sovelluslogiikka.Sovelluslogiikka;
 
 public class Sanapeli {
@@ -14,16 +13,12 @@ public class Sanapeli {
         Scanner skanneri = new Scanner(System.in);
         Sanat di = new Sanat("koira", "dog");
         Sanat du = new Sanat("kissa", "cat");
+
         
-
-        Tiedostot tiedostot = new Tiedostot();
-
-
-
         Sovelluslogiikka pom = new Sovelluslogiikka();
         pom.lisaaSanapariSanat(du);
         pom.lisaaSanapariSanat(di);
-        tiedostot.sanatTiedostosta();
+//        tiedostot.sanatTiedostosta();
 
         Kayttoliittyma seppo = new Kayttoliittyma(skanneri);
         seppo.kaynnista();

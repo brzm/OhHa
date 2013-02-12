@@ -8,28 +8,35 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Scanner;
 import sovelluslogiikka.Sovelluslogiikka;
 
 /**
- *Hoitaa tiedoston lukemisen käynnistyessä ja tiedostoon kirjoittamiseen pelin loputtua
+ * Hoitaa tiedoston lukemisen käynnistyessä ja tiedostoon kirjoittamiseen pelin
+ * loputtua
+ *
  * @author BRZM
  */
 public class Tiedostot {
-    
+
     private File tulokset;
-    private File sanatTiedosto;    
-    private Map<String,String> sanalista;
-    
-    public Tiedostot() throws IOException{
-        Sovelluslogiikka logiikka=new Sovelluslogiikka();
+    private File sanatTiedosto;
+    private Map<String, String> sanalista;
+    private Sovelluslogiikka logiikka = new Sovelluslogiikka();
+
+    public Tiedostot() throws IOException {
+        
         tulokset = new File("Tulokset.txt");
         sanatTiedosto = new File("Sanat.txt");
-        sanalista=logiikka.annaSanalista();
+        sanalista= logiikka.annaSanalista();
     }
-        public void sanatTiedostosta() throws FileNotFoundException, IOException {
+
+    public void sanatTiedostosta() throws FileNotFoundException, IOException {
 
         Properties properties = new Properties();
         properties.load(new FileInputStream(sanatTiedosto));
@@ -50,6 +57,25 @@ public class Tiedostot {
         properties.store(new FileOutputStream(sanatTiedosto), null);
 
     }
-}
     
-
+    public void tallennaTulokset(String pelaaja) throws IOException{
+        FileWriter kirjoittaja = new FileWriter(tulokset);
+        
+        String yht=logiikka.getYhteensa();
+        String oikein = logiikka.getOikein();
+        String vaarin = logiikka.getVaarin();
+        
+        kirjoittaja.append(pelaaja+"\n");
+        kirjoittaja.append(yht+"\n");
+        kirjoittaja.append(oikein+"\n");
+        kirjoittaja.append(vaarin+"\n");
+        kirjoittaja.append("-----------\n");                
+        kirjoittaja.close();
+    }
+    
+    public void testi(){
+        System.out.println(logiikka.getYhteensa());
+    }
+    
+    
+}

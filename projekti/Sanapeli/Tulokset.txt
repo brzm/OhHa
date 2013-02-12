@@ -1,1 +1,5 @@
-koira väärin
+asd
+Yhteensä 4
+Oikein 1
+Väärin 3
+-----------

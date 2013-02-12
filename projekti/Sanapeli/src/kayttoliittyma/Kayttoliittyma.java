@@ -22,7 +22,10 @@ public class Kayttoliittyma {
 
    
     public void kaynnista() throws IOException {
-
+        
+        System.out.println("Anna nimi: ");
+        String pelaaja = lukija.nextLine();
+        logiikka.sanatTiedostosta();
 
         while (true) {
             System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset");
@@ -33,7 +36,9 @@ public class Kayttoliittyma {
             } else if (komento.equals("pelaa")) {
                 pelaaPelia();
             } else if (komento.equals("lopeta")) {
-                tiedostot.sanatTiedostoon();
+                logiikka.sanatTiedostoon();
+                logiikka.tallennaTulokset(pelaaja);
+                tiedostot.testi();
                 System.out.println("Kiitos näkemiin.");
                 break;
             } else if (komento.equals("tulosta")) {
@@ -57,11 +62,6 @@ public class Kayttoliittyma {
 
     }
     
-    public void onkoOikein(){
-        System.out.println("es");
-    }
-    
-    
 
     private void pelaaPelia() throws IOException {
         
@@ -70,8 +70,7 @@ public class Kayttoliittyma {
 
 
         while (true) {
-            int monesko = arvonta.nextInt(logiikka.kuinkaMontaListassa());
-            System.out.println(monesko);
+            int monesko = arvonta.nextInt(logiikka.kuinkaMontaListassa());            
 
             String suomeksiSana = logiikka.suomeksiSana(monesko);
             String enkuksiSana = logiikka.englanniksiSana(suomeksiSana);

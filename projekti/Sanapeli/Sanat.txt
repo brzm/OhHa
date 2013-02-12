@@ -1,1 +1,4 @@
-#Tue Feb 05 19:19:24 EET 2013
+#Wed Feb 06 21:25:05 EET 2013
+omena=apple
+koira=dog
+kissa=cat
