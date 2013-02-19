@@ -1,5 +1,15 @@
-asd
-Yhteensä 4
+di
+Yhteensä 2
 Oikein 1
-Väärin 3
+Väärin 1
+-----------
+pekka
+Yhteensä 3
+Oikein 2
+Väärin 1
+-----------
+di
+Yhteensä 3
+Oikein 3
+Väärin 0
 -----------

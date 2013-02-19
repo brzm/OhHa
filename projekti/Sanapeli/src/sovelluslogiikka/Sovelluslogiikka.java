@@ -1,15 +1,9 @@
 package sovelluslogiikka;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Scanner;
 import sanapeli.Sanat;
 
@@ -21,12 +15,11 @@ import sanapeli.Sanat;
 public class Sovelluslogiikka {
 
     private Map<String, String> sanalista = new HashMap<>();
-    private File sanatTiedosto;
     private ArrayList<String> vastaukset = new ArrayList<>();
     private int kuinkamontaoikein = 0;
 
     public Sovelluslogiikka() throws IOException {
-        sanatTiedosto = new File("Sanat.txt");
+        
     }
 
     public Map annaSanalista() {
@@ -54,8 +47,6 @@ public class Sovelluslogiikka {
         return sanalista.get(i);
     }
 
-    
-
     /**
      * lisää sanaparin sanalistaan
      *
@@ -65,6 +56,17 @@ public class Sovelluslogiikka {
     public void lisaaSanapari(String suomi, String englanti) {
         if (onkoJoListalla(suomi) == false) {
             sanalista.put(suomi, englanti);
+        }
+    }
+
+    public void lisaaTiedostosta(String suomi, String englanti) {
+
+        sanalista.put(suomi, englanti);
+    }
+
+    public void lisaaLista(Map<String, String> map) {
+        for (String di : map.keySet()) {
+            sanalista.put(di, map.get(di));
         }
     }
 
@@ -182,39 +184,7 @@ public class Sovelluslogiikka {
     private int kuinkaMontaVaarin() {
         return vastaukset.size() - kuinkamontaoikein;
     }
-
-    public void tuloksienLukeminen() throws FileNotFoundException {
-        System.out.println("Yhteensä: " + vastaukset.size());
-        System.out.println("Oikein: " + kuinkamontaoikein);
-        System.out.println("Väärin: " + kuinkaMontaVaarin());
-
-        for (String di : vastaukset) {
-            System.out.println(di);
-        }
-    }
-
-    public void sanatTiedostosta() throws FileNotFoundException, IOException {
-
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(sanatTiedosto));
-
-        for (String key : properties.stringPropertyNames()) {
-            sanalista.put(key, properties.get(key).toString());
-        }
-    }
-
-    public void sanatTiedostoon() throws FileNotFoundException, IOException {
-
-        Properties properties = new Properties();
-
-        for (Map.Entry<String, String> entry : sanalista.entrySet()) {
-            properties.put(entry.getKey(), entry.getValue());
-        }
-
-        properties.store(new FileOutputStream(sanatTiedosto), null);
-
-    }
-
+    
     public String getOikein() {
         return "Oikein " + kuinkamontaoikein;
     }
@@ -227,18 +197,8 @@ public class Sovelluslogiikka {
         return "Yhteensä " + vastaukset.size();
     }
     
-     public void tallennaTulokset(String pelaaja) throws IOException{
-        FileWriter kirjoittaja = new FileWriter("Tulokset.txt");
-        
-        String yht=getYhteensa();
-        String oikein = getOikein();
-        String vaarin = getVaarin();
-        
-        kirjoittaja.append(pelaaja+"\n");
-        kirjoittaja.append(yht+"\n");
-        kirjoittaja.append(oikein+"\n");
-        kirjoittaja.append(vaarin+"\n");
-        kirjoittaja.append("-----------\n");                
-        kirjoittaja.close();
+    public ArrayList<String> getVastaukset(){
+        return vastaukset;
     }
+
 }

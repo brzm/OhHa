@@ -27,13 +27,14 @@ public class Tiedostot {
     private File tulokset;
     private File sanatTiedosto;
     private Map<String, String> sanalista;
-    private Sovelluslogiikka logiikka = new Sovelluslogiikka();
+    private Sovelluslogiikka logiikka;
+    private ArrayList vanhatTulokset = new ArrayList();
 
-    public Tiedostot() throws IOException {
-        
+    public Tiedostot(Sovelluslogiikka logiikka) throws IOException {
+        this.logiikka = logiikka;
         tulokset = new File("Tulokset.txt");
         sanatTiedosto = new File("Sanat.txt");
-        sanalista= logiikka.annaSanalista();
+        sanalista = logiikka.annaSanalista();
     }
 
     public void sanatTiedostosta() throws FileNotFoundException, IOException {
@@ -42,10 +43,11 @@ public class Tiedostot {
         properties.load(new FileInputStream(sanatTiedosto));
 
         for (String key : properties.stringPropertyNames()) {
-            sanalista.put(key, properties.get(key).toString());
+            logiikka.lisaaTiedostosta(key, properties.get(key).toString());
         }
     }
 
+    
     public void sanatTiedostoon() throws FileNotFoundException, IOException {
 
         Properties properties = new Properties();
@@ -57,25 +59,39 @@ public class Tiedostot {
         properties.store(new FileOutputStream(sanatTiedosto), null);
 
     }
-    
-    public void tallennaTulokset(String pelaaja) throws IOException{
+
+    public void tallennaTulokset(String pelaaja) throws IOException {
         FileWriter kirjoittaja = new FileWriter(tulokset);
-        
-        String yht=logiikka.getYhteensa();
+
+        String yht = logiikka.getYhteensa();
         String oikein = logiikka.getOikein();
         String vaarin = logiikka.getVaarin();
         
-        kirjoittaja.append(pelaaja+"\n");
-        kirjoittaja.append(yht+"\n");
-        kirjoittaja.append(oikein+"\n");
-        kirjoittaja.append(vaarin+"\n");
-        kirjoittaja.append("-----------\n");                
+        for(Object di:vanhatTulokset){
+            kirjoittaja.append(di.toString()+"\n");
+        }
+
+        kirjoittaja.append(pelaaja + "\n");
+        kirjoittaja.append(yht + "\n");
+        kirjoittaja.append(oikein + "\n");
+        kirjoittaja.append(vaarin + "\n");
+        kirjoittaja.append("-----------\n");
         kirjoittaja.close();
     }
     
-    public void testi(){
-        System.out.println(logiikka.getYhteensa());
+    @SuppressWarnings("empty-statement")
+    public void lueVanhatTulokset() throws FileNotFoundException{
+        Scanner skanneri=new Scanner(tulokset);
+        while(skanneri.hasNextLine()){
+            String di = skanneri.nextLine();
+            vanhatTulokset.add(di);
+        }
+        skanneri.close();
     }
     
+    public ArrayList<String> getVanhatTulokset(){
+        return vanhatTulokset;
+    }
+
     
 }

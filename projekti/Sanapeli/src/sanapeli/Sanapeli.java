@@ -20,7 +20,7 @@ public class Sanapeli {
         pom.lisaaSanapariSanat(di);
 //        tiedostot.sanatTiedostosta();
 
-        Kayttoliittyma seppo = new Kayttoliittyma(skanneri);
+        Kayttoliittyma seppo = new Kayttoliittyma();
         seppo.kaynnista();
     }
 }
