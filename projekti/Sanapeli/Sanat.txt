@@ -1,5 +1,6 @@
-#Mon Feb 18 23:15:10 EET 2013
+#Tue Feb 19 13:14:35 EET 2013
 veitsi=knife
 omena=apple
+suomi=finland
 koira=dog
 kissa=cat

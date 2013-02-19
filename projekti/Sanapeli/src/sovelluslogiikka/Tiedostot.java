@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kayttoliittyma;
+package sovelluslogiikka;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
-import sovelluslogiikka.Sovelluslogiikka;
 
 /**
  * Hoitaa tiedoston lukemisen käynnistyessä ja tiedostoon kirjoittamiseen pelin
@@ -24,17 +23,19 @@ import sovelluslogiikka.Sovelluslogiikka;
  */
 public class Tiedostot {
 
-    private File tulokset;
+    private File tuloksetTiedosto;
     private File sanatTiedosto;
     private Map<String, String> sanalista;
     private Sovelluslogiikka logiikka;
     private ArrayList vanhatTulokset = new ArrayList();
+    private Tulokset tulokset;
 
-    public Tiedostot(Sovelluslogiikka logiikka) throws IOException {
+    public Tiedostot(Sovelluslogiikka logiikka, Tulokset tulos) throws IOException {
         this.logiikka = logiikka;
-        tulokset = new File("Tulokset.txt");
+        tuloksetTiedosto = new File("Tulokset.txt");
         sanatTiedosto = new File("Sanat.txt");
         sanalista = logiikka.annaSanalista();
+        tulokset = tulos;
     }
 
     public void sanatTiedostosta() throws FileNotFoundException, IOException {
@@ -47,7 +48,6 @@ public class Tiedostot {
         }
     }
 
-    
     public void sanatTiedostoon() throws FileNotFoundException, IOException {
 
         Properties properties = new Properties();
@@ -61,14 +61,14 @@ public class Tiedostot {
     }
 
     public void tallennaTulokset(String pelaaja) throws IOException {
-        FileWriter kirjoittaja = new FileWriter(tulokset);
+        FileWriter kirjoittaja = new FileWriter(tuloksetTiedosto);
 
-        String yht = logiikka.getYhteensa();
-        String oikein = logiikka.getOikein();
-        String vaarin = logiikka.getVaarin();
-        
-        for(Object di:vanhatTulokset){
-            kirjoittaja.append(di.toString()+"\n");
+        String yht = tulokset.getYhteensa();
+        String oikein = tulokset.getOikein();
+        String vaarin = tulokset.getVaarin();
+
+        for (Object di : vanhatTulokset) {
+            kirjoittaja.append(di.toString() + "\n");
         }
 
         kirjoittaja.append(pelaaja + "\n");
@@ -78,20 +78,18 @@ public class Tiedostot {
         kirjoittaja.append("-----------\n");
         kirjoittaja.close();
     }
-    
+
     @SuppressWarnings("empty-statement")
-    public void lueVanhatTulokset() throws FileNotFoundException{
-        Scanner skanneri=new Scanner(tulokset);
-        while(skanneri.hasNextLine()){
+    public void lueVanhatTulokset() throws FileNotFoundException {
+        Scanner skanneri = new Scanner(tuloksetTiedosto);
+        while (skanneri.hasNextLine()) {
             String di = skanneri.nextLine();
             vanhatTulokset.add(di);
         }
         skanneri.close();
     }
-    
-    public ArrayList<String> getVanhatTulokset(){
+
+    public ArrayList<String> getVanhatTulokset() {
         return vanhatTulokset;
     }
-
-    
 }

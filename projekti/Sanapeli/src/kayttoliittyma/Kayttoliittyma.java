@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 import sovelluslogiikka.Sovelluslogiikka;
+import sovelluslogiikka.Tiedostot;
+import sovelluslogiikka.Tulokset;
 
 /**
  * Hoitaa printtaukset ja komennot
@@ -18,16 +20,19 @@ public class Kayttoliittyma {
     private Scanner lukija = new Scanner(System.in);
     private Sovelluslogiikka logiikka;
     private Tiedostot tiedostot;
+    private Tulokset tulokset;
 
     public Kayttoliittyma() throws IOException {
-        logiikka = new Sovelluslogiikka();
-        tiedostot = new Tiedostot(logiikka);
+        tulokset = new Tulokset();
+        logiikka = new Sovelluslogiikka(tulokset);
+
+        tiedostot = new Tiedostot(logiikka, tulokset);
     }
 
     public void kaynnista() throws IOException {
 
         tiedostot.sanatTiedostosta();
-        tiedostot.lueVanhatTulokset();        
+        tiedostot.lueVanhatTulokset();
 
         System.out.println("Anna nimi: ");
         String pelaaja = lukija.nextLine();
@@ -49,7 +54,7 @@ public class Kayttoliittyma {
             } else if (komento.equals("tulosta")) {
                 tulostaSanat(logiikka.annaSanalista());
             } else if (komento.equals("tulokset")) {
-                tulokset(logiikka.getYhteensa(), logiikka.getOikein(), logiikka.getVaarin(),logiikka.getVastaukset());
+                tulokset(tulokset.getYhteensa(), tulokset.getOikein(), tulokset.getVaarin(), tulokset.getVastaukset());
             } else if (komento.equals("vanhat")) {
                 vanhatTulokset(tiedostot.getVanhatTulokset());
             }
@@ -60,10 +65,34 @@ public class Kayttoliittyma {
         System.out.println("Anna suomeksi: ");
         String suomi = lukija.nextLine();
 
-        System.out.println("Anna englanniksi: ");
-        String enkku = lukija.nextLine();
+        if (logiikka.onkoJoListalla(suomi)) {
+            System.out.println("Sana on jo listalla");
+        }
 
-        logiikka.sanojenAntaminen(suomi, enkku);
+        onkoTyhjaSana(suomi);
+
+        if (logiikka.onkoJoListalla(suomi) == false && onkoTyhjaSana(suomi)) {
+
+            System.out.println("Anna englanniksi: ");
+            String enkku = lukija.nextLine();
+
+
+            if (onkoTyhjaSana(enkku)) {
+                System.out.println("Onko oikein, suomeksi: " + suomi + ", englanniksi: " + enkku + " (y/n)?");
+                String tarkistus = lukija.nextLine();
+
+                if (logiikka.mikaMerkki(tarkistus)) {
+                    logiikka.lisaaSanapari(suomi, enkku);
+                }
+            }
+        }
+    }
+
+    private boolean onkoTyhjaSana(String sana) {
+        if (logiikka.eiTyhjiaSanoja(sana, sana) == false) {
+            System.out.println("Pitää kirjoittaa jotakin");
+        }
+        return logiikka.eiTyhjiaSanoja(sana, sana);
 
     }
 
@@ -86,29 +115,35 @@ public class Kayttoliittyma {
                 break;
             }
 
-            logiikka.vastauksenHoito(suomeksiSana, enkuksiSana, vastaus);
+            if (logiikka.vastauksenHoito(suomeksiSana, enkuksiSana, vastaus)) {
+                tulokset.tuloksienListaaminenOikein(suomeksiSana);
+                System.out.println("Oikein");
+            } else {
+                System.out.println("Väärin, oikea vastaus on " + enkuksiSana);
+                tulokset.tuloksienListaaminenVaarin(suomeksiSana);
+            }
         }
-
     }
 
-    private void tulostaSanat(Map<String,String> map) {
-        for(String di:map.keySet()){
-            System.out.println(di+" = "+map.get(di));
+    private void tulostaSanat(Map<String, String> map) {
+        System.out.println("Sanoja yhteensä: " + logiikka.kuinkaMontaListassa());
+        for (String di : map.keySet()) {
+            System.out.println(di + " = " + map.get(di));
         }
     }
 
-    private void tulokset(String yht,String oik,String vaar,ArrayList<String> lista) throws FileNotFoundException {
+    private void tulokset(String yht, String oik, String vaar, ArrayList<String> lista) throws FileNotFoundException {
         System.out.println(yht);
         System.out.println(oik);
         System.out.println(vaar);
-        
-        for(String di:lista){
+
+        for (String di : lista) {
             System.out.println(di);
         }
     }
 
     private void vanhatTulokset(ArrayList<String> lista) throws FileNotFoundException {
-        for(String di:lista){
+        for (String di : lista) {
             System.out.println(di);
         }
     }

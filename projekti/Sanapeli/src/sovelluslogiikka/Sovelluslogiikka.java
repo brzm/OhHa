@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import sanapeli.Sanat;
 
 /**
@@ -14,16 +13,33 @@ import sanapeli.Sanat;
  */
 public class Sovelluslogiikka {
 
-    private Map<String, String> sanalista = new HashMap<>();
-    private ArrayList<String> vastaukset = new ArrayList<>();
-    private int kuinkamontaoikein = 0;
+    private Map<String, String> sanalista = new HashMap<>();  
 
-    public Sovelluslogiikka() throws IOException {
-        
+    public Sovelluslogiikka(Tulokset tulos)  {
     }
 
     public Map annaSanalista() {
         return sanalista;
+    }
+
+    /**
+     * lisää sanaparin sanalistaan
+     *
+     * @param suomi
+     * @param englanti
+     */
+    public void lisaaSanapari(String suomi, String englanti) {
+        if (onkoJoListalla(suomi) == false) {
+            sanalista.put(suomi, englanti);
+        }
+    }
+
+    public void lisaaTiedostosta(String suomi, String englanti) {
+        sanalista.put(suomi, englanti);
+    }
+
+    public void lisaaSanapariSanat(Sanat sanat) {
+        sanalista.put(sanat.getSuomi(), sanat.getEnglanti());
     }
 
     public String suomeksiSana(int i) {
@@ -48,29 +64,6 @@ public class Sovelluslogiikka {
     }
 
     /**
-     * lisää sanaparin sanalistaan
-     *
-     * @param suomi
-     * @param englanti
-     */
-    public void lisaaSanapari(String suomi, String englanti) {
-        if (onkoJoListalla(suomi) == false) {
-            sanalista.put(suomi, englanti);
-        }
-    }
-
-    public void lisaaTiedostosta(String suomi, String englanti) {
-
-        sanalista.put(suomi, englanti);
-    }
-
-    public void lisaaLista(Map<String, String> map) {
-        for (String di : map.keySet()) {
-            sanalista.put(di, map.get(di));
-        }
-    }
-
-    /**
      * jos listalta löytyy jo annettu arvo, sitä ei lisätä uudestaan
      *
      * @param suomi
@@ -79,37 +72,13 @@ public class Sovelluslogiikka {
     public boolean onkoJoListalla(String suomi) {
         for (String di : sanalista.keySet()) {
             if (suomi.equals(di)) {
-                System.out.println("Sana on jo listalla");
                 return true;
             }
         }
 
         return false;
     }
-
-    /**
-     *
-     * @param sanat
-     */
-    public void lisaaSanapariSanat(Sanat sanat) {
-        sanalista.put(sanat.getSuomi(), sanat.getEnglanti());
-    }
-
-    public void tulostaKaikki() {
-        System.out.println("Sanoja yhteensä: " + sanalista.size());
-        for (String di : sanalista.keySet()) {
-            System.out.println(di + " : " + sanalista.get(di));
-        }
-
-    }
-
-    public void sanojenAntaminen(String suomi, String enkku) {
-
-        if (tarkistus(suomi, enkku)) {
-            lisaaSanapari(suomi, enkku);
-        }
-    }
-
+    
     /**
      * pakko kirjoittaa jotakin, eikä voi jättää sanoja "tyhjiksi"
      *
@@ -119,36 +88,16 @@ public class Sovelluslogiikka {
      */
     public boolean eiTyhjiaSanoja(String fin, String eng) {
         if (fin.equals("") || eng.equals("")) {
-            System.out.println("Pitää kirjoittaa jotakin");
             return false;
         }
         return true;
     }
 
     /**
-     * tarkistaa onko annetut sanat oikein
-     *
-     * @param fin
-     * @param eng
-     * @return true jos on oikein
-     */
-    public boolean tarkistus(String fin, String eng) {
-
-        String teksti = "";
-        if (eiTyhjiaSanoja(fin, eng)) {
-            Scanner lukija = new Scanner(System.in);
-            System.out.println("Onko oikein: suomeksi " + fin + ", englanniksi " + eng + " (y/n)");
-            teksti = lukija.nextLine();
-        }
-
-        return mikaMerkki(teksti);
-    }
-
-    /**
-     * tarkistaa annetun merkin, ja lisätäänkö sanapari listaan
+     * tarkistaa annetun merkin, että lisätäänkö sanapari listaan
      *
      * @param merkki
-     * @return true jos y
+     * @return true jos y ja lisätään listaan
      */
     public boolean mikaMerkki(String merkki) {
         if (merkki.equals("y")) {
@@ -158,47 +107,23 @@ public class Sovelluslogiikka {
         }
     }
 
-    public void vastauksenHoito(String suomi, String enkku, String vastaus) throws IOException {
+    /**
+     * Tarkistaa onko vastaus oikein vai väärin
+     * @param suomi
+     * @param enkku
+     * @param vastaus
+     * @return true jos oikein
+     * @throws IOException eipäs
+     */
+    public boolean vastauksenHoito(String suomi, String enkku, String vastaus) {
         if (enkku.equals(vastaus)) {
-            System.out.println("Oikein");
-            tuloksienListaaminenOikein(suomi);
+            return true;
         } else {
-            System.out.println("Väärin, oikea vastaus on " + enkku);
-            tuloksienListaaminenVaarin(suomi);
+            return false;
         }
     }
 
     public int kuinkaMontaListassa() {
         return sanalista.size();
     }
-
-    public void tuloksienListaaminenOikein(String suomi) throws IOException {
-        vastaukset.add(suomi + " oikein");
-        kuinkamontaoikein++;
-    }
-
-    public void tuloksienListaaminenVaarin(String suomi) throws IOException {
-        vastaukset.add(suomi + " väärin");
-    }
-
-    private int kuinkaMontaVaarin() {
-        return vastaukset.size() - kuinkamontaoikein;
-    }
-    
-    public String getOikein() {
-        return "Oikein " + kuinkamontaoikein;
-    }
-
-    public String getVaarin() {
-        return "Väärin " + kuinkaMontaVaarin();
-    }
-
-    public String getYhteensa() {
-        return "Yhteensä " + vastaukset.size();
-    }
-    
-    public ArrayList<String> getVastaukset(){
-        return vastaukset;
-    }
-
 }

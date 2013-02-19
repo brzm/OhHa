@@ -13,3 +13,18 @@ Yhteensä 3
 Oikein 3
 Väärin 0
 -----------
+asd
+Yhteensä 16
+Oikein 1
+Väärin 15
+-----------
+asd
+Yhteensä 3
+Oikein 2
+Väärin 1
+-----------
+asd
+Yhteensä 0
+Oikein 0
+Väärin 0
+-----------

@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import sovelluslogiikka.Sovelluslogiikka;
+import sovelluslogiikka.Tulokset;
 
 /**
  *
@@ -22,7 +23,8 @@ public class SovelluslogiikkaTest {
     private Sovelluslogiikka di;
 
     public SovelluslogiikkaTest() throws IOException {
-        di = new Sovelluslogiikka();
+        Tulokset tulokset=new Tulokset();
+        di = new Sovelluslogiikka(tulokset);
     }
 
     @BeforeClass
