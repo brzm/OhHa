@@ -7,7 +7,7 @@ import java.util.Map;
 import sanapeli.Sanat;
 
 /**
- * hoitaa Kayttoliittyman metodeja
+ * hoitaa sanalistan ja pelin metodit
  *
  * @author BRZM
  */
@@ -41,7 +41,11 @@ public class Sovelluslogiikka {
     public void lisaaSanapariSanat(Sanat sanat) {
         sanalista.put(sanat.getSuomi(), sanat.getEnglanti());
     }
-
+/**
+ * palauttaa pelille suomeksi sanan
+ * @param i
+ * @return 
+ */
     public String suomeksiSana(int i) {
 
         ArrayList<String> lista = new ArrayList<>();

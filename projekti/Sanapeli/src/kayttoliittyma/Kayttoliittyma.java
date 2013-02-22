@@ -29,6 +29,10 @@ public class Kayttoliittyma {
         tiedostot = new Tiedostot(logiikka, tulokset);
     }
 
+    /**
+     * Käynnistää pelin, kysyy komennot ja siirtää vastuun eteenpäin
+     * @throws IOException 
+     */
     public void kaynnista() throws IOException {
 
         tiedostot.sanatTiedostosta();
@@ -60,7 +64,9 @@ public class Kayttoliittyma {
             }
         }
     }
-
+/**
+ * Kysyy sanat, js tarkistaa ettei tyhjiä tai samoja sanoja lisätä
+ */
     private void annetutSanat() {
         System.out.println("Anna suomeksi: ");
         String suomi = lukija.nextLine();
@@ -88,6 +94,11 @@ public class Kayttoliittyma {
         }
     }
 
+    /**
+     * varmistaa ettei ole tyhjä sana
+     * @param sana
+     * @return 
+     */
     private boolean onkoTyhjaSana(String sana) {
         if (logiikka.eiTyhjiaSanoja(sana, sana) == false) {
             System.out.println("Pitää kirjoittaa jotakin");
@@ -96,6 +107,10 @@ public class Kayttoliittyma {
 
     }
 
+    /**
+     * pelin pelaaminen, kysyy sanat ja antaa tulokset muualle
+     * @throws IOException 
+     */
     private void pelaaPelia() throws IOException {
 
         System.out.println("'lopeta' lopettaa pelin");
@@ -125,6 +140,10 @@ public class Kayttoliittyma {
         }
     }
 
+    /**
+     * tulostaa sanalistan sanat
+     * @param map 
+     */
     private void tulostaSanat(Map<String, String> map) {
         System.out.println("Sanoja yhteensä: " + logiikka.kuinkaMontaListassa());
         for (String di : map.keySet()) {
@@ -132,6 +151,14 @@ public class Kayttoliittyma {
         }
     }
 
+    /**
+     * tulostaa tämänhetkiset tulokset
+     * @param yht
+     * @param oik
+     * @param vaar
+     * @param lista
+     * @throws FileNotFoundException 
+     */
     private void tulokset(String yht, String oik, String vaar, ArrayList<String> lista) throws FileNotFoundException {
         System.out.println(yht);
         System.out.println(oik);
@@ -142,6 +169,11 @@ public class Kayttoliittyma {
         }
     }
 
+    /**
+     * tulostaa tiedostossa olevat vanhat tulokset
+     * @param lista
+     * @throws FileNotFoundException 
+     */
     private void vanhatTulokset(ArrayList<String> lista) throws FileNotFoundException {
         for (String di : lista) {
             System.out.println(di);

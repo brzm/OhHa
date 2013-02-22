@@ -1,2 +1,8 @@
 Sanakirjapeli eli suomeksi ja englanniksi sanoja, joita kaannetaan toiselle kielelle.
 Voi lisata sanoja. Tuloksia listataan tiedostoon.
+
+Main käynnistää graafisen käyttöliittymän, jossa on ohjeet. 
+Se taas käynnistää tekstikäyttöliittymän, joka hakee heti tiedostoista vanhat sanat ja tulokset.
+Peli kysyy sitten käyttäjän komentoa, ja toimii sen mukaan. 
+Ohjelman lopetusvaiheessa tulokset ja mahdolliset uudet sanat kirjoitetaan talteen.
+Graafinen jäi puolitiehen eli jar ei toimi.

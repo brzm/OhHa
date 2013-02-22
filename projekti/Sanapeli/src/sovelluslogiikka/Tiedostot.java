@@ -38,6 +38,11 @@ public class Tiedostot {
         tulokset = tulos;
     }
 
+    /**
+     * lukee vanhat sanat tiedostosta ja heittää sanat sovelluslogiikan sanalistaan
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void sanatTiedostosta() throws FileNotFoundException, IOException {
 
         Properties properties = new Properties();
@@ -48,6 +53,11 @@ public class Tiedostot {
         }
     }
 
+    /**
+     * tallentaa sanat tiedostoon
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void sanatTiedostoon() throws FileNotFoundException, IOException {
 
         Properties properties = new Properties();
@@ -60,6 +70,11 @@ public class Tiedostot {
 
     }
 
+    /**
+     * tallentaa tulokset
+     * @param pelaaja
+     * @throws IOException 
+     */
     public void tallennaTulokset(String pelaaja) throws IOException {
         FileWriter kirjoittaja = new FileWriter(tuloksetTiedosto);
 
