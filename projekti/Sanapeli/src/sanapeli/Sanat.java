@@ -2,6 +2,10 @@ package sanapeli;
 
 import java.io.File;
 
+/**
+ * ei tee mitään järkevää
+ * @author brzm
+ */
 public class Sanat {
     static File txt;
 

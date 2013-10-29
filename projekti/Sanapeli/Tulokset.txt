@@ -28,3 +28,8 @@ Yhteensä 0
 Oikein 0
 Väärin 0
 -----------
+di
+Yhteensä 4
+Oikein 2
+Väärin 2
+-----------

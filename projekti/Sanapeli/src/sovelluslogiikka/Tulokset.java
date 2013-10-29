@@ -16,12 +16,22 @@ public class Tulokset {
     private ArrayList<String> vastaukset=new ArrayList<>();
     private int kuinkamontaoikein=0;
     
-    
+  
+    /**
+     * listaa oikein olevian tulosten lkm
+     * @param suomi
+     * @throws IOException 
+     */
     public void tuloksienListaaminenOikein(String suomi) throws IOException {
         vastaukset.add(suomi + " oikein");
         kuinkamontaoikein++;
     }
 
+    /**
+     * listaa väärin olevien tulosten lkm
+     * @param suomi
+     * @throws IOException 
+     */
     public void tuloksienListaaminenVaarin(String suomi) throws IOException {
         vastaukset.add(suomi + " väärin");
     }
