@@ -33,3 +33,8 @@ Yhteensä 4
 Oikein 2
 Väärin 2
 -----------
+sepi
+Yhteensä 4
+Oikein 2
+Väärin 2
+-----------

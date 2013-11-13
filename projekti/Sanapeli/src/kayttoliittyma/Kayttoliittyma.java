@@ -67,7 +67,7 @@ public class Kayttoliittyma {
 /**
  * Kysyy sanat, js tarkistaa ettei tyhjiä tai samoja sanoja lisätä
  */
-    private void annetutSanat() {
+    public void annetutSanat() {
         System.out.println("Anna suomeksi: ");
         String suomi = lukija.nextLine();
 
@@ -144,7 +144,7 @@ public class Kayttoliittyma {
      * tulostaa sanalistan sanat
      * @param map 
      */
-    private void tulostaSanat(Map<String, String> map) {
+    public void tulostaSanat(Map<String, String> map) {
         System.out.println("Sanoja yhteensä: " + logiikka.kuinkaMontaListassa());
         for (String di : map.keySet()) {
             System.out.println(di + " = " + map.get(di));

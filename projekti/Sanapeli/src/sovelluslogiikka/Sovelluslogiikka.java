@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import sanapeli.Sanat;
 
 /**
  * hoitaa sanalistan ja pelin metodit
@@ -38,9 +37,7 @@ public class Sovelluslogiikka {
         sanalista.put(suomi, englanti);
     }
 
-    public void lisaaSanapariSanat(Sanat sanat) {
-        sanalista.put(sanat.getSuomi(), sanat.getEnglanti());
-    }
+    
 /**
  * palauttaa pelille suomeksi sanan
  * @param i
