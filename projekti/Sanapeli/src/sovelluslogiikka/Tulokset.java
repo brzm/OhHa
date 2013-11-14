@@ -15,6 +15,9 @@ public class Tulokset {
     
     private ArrayList<String> vastaukset=new ArrayList<>();
     private int kuinkamontaoikein=0;
+    private String kaikkiYht;
+    private String kaikkiOik;
+    private String kaikkiVaa;
     
   
     /**
@@ -54,6 +57,30 @@ public class Tulokset {
     
     public ArrayList<String> getVastaukset(){
         return vastaukset;
+    }
+    
+    public void yhteensaVastauksia(int i){
+        kaikkiYht= "Yhteensä "+ i+getYhteensa();        
+    }
+    
+    public String yhteensaOikein(int i ){
+        return "Oikein "+i+getOikein();
+    }
+    
+    public String yhteensaVaarin(int i){
+        return "Väärin "+ i+getVaarin();
+    }
+    
+    public String palautaKaikkiYht(){
+        return kaikkiYht;
+    }
+    
+    public String palautaKaikkiOik(){
+        return kaikkiOik;
+    }
+    
+    public String palautaKaikkiVaa(){
+        return kaikkiVaa;
     }
     
 }

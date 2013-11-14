@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JLabel;
 import sovelluslogiikka.Sovelluslogiikka;
 import sovelluslogiikka.Tiedostot;
 import sovelluslogiikka.Tulokset;
@@ -40,7 +41,7 @@ public class Kayttoliittyma {
      */
     public void kaynnista() throws IOException {
 
-        
+        tiedostojenHaku();
 
         System.out.println("Anna nimi: ");
         String pelaaja = lukija.nextLine();
@@ -115,7 +116,7 @@ public class Kayttoliittyma {
      * pelin pelaaminen, kysyy sanat ja antaa tulokset muualle
      * @throws IOException 
      */
-    private void pelaaPelia() throws IOException {
+    public void pelaaPelia() throws IOException {
 
         System.out.println("'lopeta' lopettaa pelin");
         Random arvonta = new Random();
@@ -148,11 +149,14 @@ public class Kayttoliittyma {
      * tulostaa sanalistan sanat
      * @param map 
      */
-    public void tulostaSanat(Map<String, String> map) {
+    public JLabel tulostaSanat(Map<String, String> map) {
+        JLabel sanat = new JLabel("");
         System.out.println("Sanoja yhteensä: " + logiikka.kuinkaMontaListassa());
         for (String di : map.keySet()) {
+            sanat.setText(di + " = " + map.get(di)+"\n");
             System.out.println(di + " = " + map.get(di));
         }
+        return sanat;
     }
 
     /**

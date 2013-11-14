@@ -32,15 +32,16 @@ public class Graafinen implements Runnable {
 
     public Graafinen() throws IOException {
         kayttoliittyma = new Kayttoliittyma();
-        kayttoliittyma.tiedostojenHaku();
     }
 
     @Override
     public void run() {
         try {
+            kayttoliittyma.tiedostojenHaku();
+            kayttoliittyma.kaynnista();
 
             frame = new JFrame("Sanapeli");
-            frame.setPreferredSize(new Dimension(1000, 200));
+            frame.setPreferredSize(new Dimension(1000, 600));
 
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,44 +56,58 @@ public class Graafinen implements Runnable {
     }
 
     private JPanel valikkoPaneeli(JButton lisaa, JButton pelaa, JButton tulokset, JButton vanhatTulokset, JButton sanat) {
-        JPanel panel = new JPanel(new GridLayout(1, 5));
-        panel.add(lisaa);
-        panel.add(pelaa);
-        panel.add(tulokset);
-        panel.add(vanhatTulokset);
-        panel.add(sanat);
-        return panel;
+        JPanel paneeli = new JPanel(new GridLayout(1, 5));
+        paneeli.add(lisaa);
+        paneeli.add(pelaa);
+        paneeli.add(tulokset);
+        paneeli.add(vanhatTulokset);
+        paneeli.add(sanat);
+        return paneeli;
 
     }
 
-    private void luoKomponentit(Container container) throws IOException {
+    private void luoKomponentit(final Container container) throws IOException {
         JButton lisaa = new JButton("LISÄÄ");
         JButton pelaa = new JButton("PELAA");
         JButton tulokset = new JButton("TULOKSET");
         JButton vanhatTulokset = new JButton("VANHAT TULOKSET");
         JButton sanat = new JButton("SANAT");
-
-        container.add(valikkoPaneeli(lisaa, pelaa, tulokset, vanhatTulokset, sanat), BorderLayout.NORTH);
-        container.add(new JLabel());
-
         
-        JLabel teksti = new JLabel("");
+        container.add(valikkoPaneeli(lisaa, pelaa, tulokset, vanhatTulokset, sanat), BorderLayout.NORTH);
+        container.add(new JTextArea());
+        container.add(new JLabel("asd"));
+
+
+
         pelaa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                Random arvonta = new Random();
-                int monesko = arvonta.nextInt(logiikka.kuinkaMontaListassa());
+                try {
+                    
+                    
+                    
 
-                JLabel teksti = new JLabel("Suomeksi sana: " + logiikka.suomeksiSana(monesko) + ". Kirjoita englanniksi");
-                
-                throw new UnsupportedOperationException("Not supported yet.");
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+
+
             }
         });
-        
-        container.add(teksti);
 
+        sanat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    container.add(kayttoliittyma.tulostaSanat(logiikka.annaSanalista()));
 
+                } catch (Exception xx) {
+                    xx.getCause();
+                }
+
+            }
+        });
 
     }
 }

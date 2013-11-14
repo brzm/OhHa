@@ -2,6 +2,7 @@ package sanapeli;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import kayttoliittyma.Kayttoliittyma;
 
 /**
  * main saatana
@@ -13,6 +14,9 @@ public class Sanapeli {
         // TODO code application logic here 
         
         kayttoliittyma.graafinen.Graafinen di = new kayttoliittyma.graafinen.Graafinen();
-        di.run();      
+//        di.run();    
+        
+        kayttoliittyma.Kayttoliittyma dinz=new Kayttoliittyma();
+        dinz.kaynnista();
     }
 }
