@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -37,9 +38,9 @@ public class Graafinen implements Runnable {
     @Override
     public void run() {
         try {
-            
+
             frame = new JFrame("Sanapeli");
-            frame.setPreferredSize(new Dimension(700, 200));
+            frame.setPreferredSize(new Dimension(1000, 200));
 
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,28 +70,29 @@ public class Graafinen implements Runnable {
         JButton pelaa = new JButton("PELAA");
         JButton tulokset = new JButton("TULOKSET");
         JButton vanhatTulokset = new JButton("VANHAT TULOKSET");
-        JButton sanat =new JButton("SANAT");
-        container.add(valikkoPaneeli(lisaa,pelaa,tulokset,vanhatTulokset,sanat),BorderLayout.NORTH);
-        container.add(new JLabel());
-        pelaa.addActionListener(new ActionListener() {
+        JButton sanat = new JButton("SANAT");
 
+        container.add(valikkoPaneeli(lisaa, pelaa, tulokset, vanhatTulokset, sanat), BorderLayout.NORTH);
+        container.add(new JLabel());
+
+        
+        JLabel teksti = new JLabel("");
+        pelaa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Pelaa pelaa = new Pelaa(logiikka);
-                pelaa.pelaaPelia();
+                
+                Random arvonta = new Random();
+                int monesko = arvonta.nextInt(logiikka.kuinkaMontaListassa());
+
+                JLabel teksti = new JLabel("Suomeksi sana: " + logiikka.suomeksiSana(monesko) + ". Kirjoita englanniksi");
+                
                 throw new UnsupportedOperationException("Not supported yet.");
             }
         });
         
-        
-//        JButton ok = new JButton("OK");ok.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                try {
-//                    frame.dispose();
-//                    di.kaynnista();
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Graafinen.class.getName()).log(Level.SEVERE, null, ex);
-//                }}});container.add(ok);
+        container.add(teksti);
+
+
+
     }
 }
