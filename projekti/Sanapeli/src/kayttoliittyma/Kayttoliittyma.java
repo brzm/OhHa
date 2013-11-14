@@ -28,6 +28,11 @@ public class Kayttoliittyma {
 
         tiedostot = new Tiedostot(logiikka, tulokset);
     }
+    
+    public void tiedostojenHaku() throws FileNotFoundException, IOException{
+        tiedostot.sanatTiedostosta();
+        tiedostot.lueVanhatTulokset();
+    }
 
     /**
      * Käynnistää pelin, kysyy komennot ja siirtää vastuun eteenpäin
@@ -35,8 +40,7 @@ public class Kayttoliittyma {
      */
     public void kaynnista() throws IOException {
 
-        tiedostot.sanatTiedostosta();
-        tiedostot.lueVanhatTulokset();
+        
 
         System.out.println("Anna nimi: ");
         String pelaaja = lukija.nextLine();

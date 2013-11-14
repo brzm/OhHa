@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import kayttoliittyma.Kayttoliittyma;
+import sovelluslogiikka.Sovelluslogiikka;
 
 /**
  * Graafinen käyttöliittymä, jossa ohjeet ja tekstikäyttöliittmän käynnistys
@@ -26,17 +27,19 @@ public class Graafinen implements Runnable {
     private JFrame frame;
     private Kayttoliittyma kayttoliittyma;
     private JLabel jlabel;
+    private Sovelluslogiikka logiikka;
 
     public Graafinen() throws IOException {
         kayttoliittyma = new Kayttoliittyma();
+        kayttoliittyma.tiedostojenHaku();
     }
 
     @Override
     public void run() {
         try {
-            kayttoliittyma.kaynnista();
+            
             frame = new JFrame("Sanapeli");
-            frame.setPreferredSize(new Dimension(600, 600));
+            frame.setPreferredSize(new Dimension(700, 200));
 
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,22 +53,34 @@ public class Graafinen implements Runnable {
         }
     }
 
-    private JPanel valikkoPaneeli() {
+    private JPanel valikkoPaneeli(JButton lisaa, JButton pelaa, JButton tulokset, JButton vanhatTulokset, JButton sanat) {
         JPanel panel = new JPanel(new GridLayout(1, 5));
-        panel.add(new JButton("LISÄÄ"));
-        panel.add(new JButton("PELAA"));
-        panel.add(new JButton("TULOKSET"));
-        panel.add(new JButton("VANHAT TULOKSET"));
-        panel.add(new JButton("SANAT"));
+        panel.add(lisaa);
+        panel.add(pelaa);
+        panel.add(tulokset);
+        panel.add(vanhatTulokset);
+        panel.add(sanat);
         return panel;
 
     }
 
     private void luoKomponentit(Container container) throws IOException {
-        
-        container.add(valikkoPaneeli(),BorderLayout.NORTH);
-        container.add(new JLabel("asd"));
-        container.add(new JTextField());
+        JButton lisaa = new JButton("LISÄÄ");
+        JButton pelaa = new JButton("PELAA");
+        JButton tulokset = new JButton("TULOKSET");
+        JButton vanhatTulokset = new JButton("VANHAT TULOKSET");
+        JButton sanat =new JButton("SANAT");
+        container.add(valikkoPaneeli(lisaa,pelaa,tulokset,vanhatTulokset,sanat),BorderLayout.NORTH);
+        container.add(new JLabel());
+        pelaa.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Pelaa pelaa = new Pelaa(logiikka);
+                pelaa.pelaaPelia();
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
         
         
 //        JButton ok = new JButton("OK");ok.addActionListener(new ActionListener() {
