@@ -1,2 +1,3 @@
 yli 9000h
 14.11 graafisen vaantamista, ei oikein onnistu. saman nimen poisto tuloksista
+21.11 tallennuksen korjaus, sanan poisto

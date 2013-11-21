@@ -37,8 +37,10 @@ public class Graafinen implements Runnable {
     @Override
     public void run() {
         try {
+
+            jlabel = new JLabel("PRKL");
             kayttoliittyma.tiedostojenHaku();
-            kayttoliittyma.kaynnista();
+//            kayttoliittyma.kaynnista();
 
             frame = new JFrame("Sanapeli");
             frame.setPreferredSize(new Dimension(1000, 600));
@@ -68,14 +70,13 @@ public class Graafinen implements Runnable {
 
     private void luoKomponentit(final Container container) throws IOException {
         JButton lisaa = new JButton("LISÄÄ");
-        JButton pelaa = new JButton("PELAA");
+        JButton pelaa = new JButton("PELI");
         JButton tulokset = new JButton("TULOKSET");
         JButton vanhatTulokset = new JButton("VANHAT TULOKSET");
         JButton sanat = new JButton("SANAT");
-        
+
         container.add(valikkoPaneeli(lisaa, pelaa, tulokset, vanhatTulokset, sanat), BorderLayout.NORTH);
-        container.add(new JTextArea());
-        container.add(new JLabel("asd"));
+
 
 
 
@@ -83,11 +84,15 @@ public class Graafinen implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    
-                    
-                    
+                    JPanel peli = new JPanel();
+                    peli.setLayout(new BoxLayout(peli, BoxLayout.Y_AXIS));
 
+                    JLabel suomeksi = new JLabel("suomeksi");
+                    peli.add(suomeksi);
+                    JTextField vastaus = new JTextField("");
+                    peli.add(vastaus);
 
+                    container.add(peli);
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }
@@ -100,7 +105,7 @@ public class Graafinen implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    container.add(kayttoliittyma.tulostaSanat(logiikka.annaSanalista()));
+                    jlabel = kayttoliittyma.tulostaSanat(logiikka.annaSanalista());
 
                 } catch (Exception xx) {
                     xx.getCause();

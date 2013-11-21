@@ -1,10 +1,5 @@
 asd
-Yhteensä 50Yhteensä 1
-null
-null
------------
-dinz
-Yhteensä 2
-Oikein 2
-Väärin 0
+Yhteensä 8
+Oikein 4
+Väärin 4
 -----------

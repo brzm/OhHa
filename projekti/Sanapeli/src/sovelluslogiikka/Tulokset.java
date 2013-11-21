@@ -7,23 +7,24 @@ package sovelluslogiikka;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**listaa pelin aikana tulleet tulokset
+/**
+ * listaa pelin aikana tulleet tulokset
  *
  * @author BRZM
  */
 public class Tulokset {
-    
-    private ArrayList<String> vastaukset=new ArrayList<>();
-    private int kuinkamontaoikein=0;
-    private String kaikkiYht;
-    private String kaikkiOik;
-    private String kaikkiVaa;
-    
-  
+
+    private ArrayList<String> vastaukset = new ArrayList<>();
+    private int kuinkamontaoikein = 0;
+    private String kaikkiVastauksetLkm;
+    private String kaikkiOikeinLkm;
+    private String kaikkiVaarinLkm;
+
     /**
      * listaa oikein olevian tulosten lkm
+     *
      * @param suomi
-     * @throws IOException 
+     * @throws IOException
      */
     public void tuloksienListaaminenOikein(String suomi) throws IOException {
         vastaukset.add(suomi + " oikein");
@@ -32,8 +33,9 @@ public class Tulokset {
 
     /**
      * listaa väärin olevien tulosten lkm
+     *
      * @param suomi
-     * @throws IOException 
+     * @throws IOException
      */
     public void tuloksienListaaminenVaarin(String suomi) throws IOException {
         vastaukset.add(suomi + " väärin");
@@ -42,7 +44,7 @@ public class Tulokset {
     private int kuinkaMontaVaarin() {
         return vastaukset.size() - kuinkamontaoikein;
     }
-    
+
     public String getOikein() {
         return "Oikein " + kuinkamontaoikein;
     }
@@ -54,33 +56,35 @@ public class Tulokset {
     public String getYhteensa() {
         return "Yhteensä " + vastaukset.size();
     }
-    
-    public ArrayList<String> getVastaukset(){
+
+    public ArrayList<String> getVastaukset() {
         return vastaukset;
     }
-    
-    public void yhteensaVastauksia(int i){
-        kaikkiYht= "Yhteensä "+ i+getYhteensa();        
+
+    public void yhteensaVastauksia(int i) {
+        int yhteensa = i + vastaukset.size();
+        kaikkiVastauksetLkm = "Yhteensä " + yhteensa;
     }
-    
-    public String yhteensaOikein(int i ){
-        return "Oikein "+i+getOikein();
+
+    public void yhteensaOikein(int i) {
+        int yhteensa = i + kuinkamontaoikein;
+        kaikkiOikeinLkm = "Oikein " + yhteensa;
     }
-    
-    public String yhteensaVaarin(int i){
-        return "Väärin "+ i+getVaarin();
+
+    public void yhteensaVaarin(int i) {
+        int yhteensa = i + kuinkaMontaVaarin();
+        kaikkiVaarinLkm = "Väärin " + yhteensa;
     }
-    
-    public String palautaKaikkiYht(){
-        return kaikkiYht;
+
+    public String palautaKaikkiYht() {
+        return kaikkiVastauksetLkm;
     }
-    
-    public String palautaKaikkiOik(){
-        return kaikkiOik;
+
+    public String palautaKaikkiOik() {
+        return kaikkiOikeinLkm;
     }
-    
-    public String palautaKaikkiVaa(){
-        return kaikkiVaa;
+
+    public String palautaKaikkiVaa() {
+        return kaikkiVaarinLkm;
     }
-    
 }

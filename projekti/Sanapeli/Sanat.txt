@@ -1,7 +1,8 @@
-#Thu Nov 14 17:09:07 EET 2013
+#Thu Nov 21 14:19:28 EET 2013
 veitsi=knife
 omena=apple
 juuh=elikk\uFFFDs
 suomi=finland
 koira=dog
 kissa=cat
+lautanen=plate

@@ -27,7 +27,6 @@ public class Tiedostot {
     private File sanatTiedosto;
     private Map<String, String> sanalista;
     private Sovelluslogiikka logiikka;
-    private ArrayList vanhatTulokset = new ArrayList();
     private Tulokset tulokset;
     private ArrayList<String> lista = new ArrayList<>();
 
@@ -85,30 +84,30 @@ public class Tiedostot {
 
         if (onkoSamaHenkilo(pelaaja)) {
             for (Object di : lista) {
-            kirjoittaja.append(di.toString() + "\n");
-        }
+                kirjoittaja.append(di.toString() + "\n");
+            }
 
-        kirjoittaja.append(pelaaja + "\n");
-        kirjoittaja.append(tulokset.palautaKaikkiYht() + "\n");
-        kirjoittaja.append(tulokset.palautaKaikkiOik() + "\n");
-        kirjoittaja.append(tulokset.palautaKaikkiVaa() + "\n");
-        kirjoittaja.append("-----------\n");
-        kirjoittaja.close();
+            kirjoittaja.append(pelaaja + "\n");
+            kirjoittaja.append(tulokset.palautaKaikkiYht() + "\n");
+            kirjoittaja.append(tulokset.palautaKaikkiOik() + "\n");
+            kirjoittaja.append(tulokset.palautaKaikkiVaa() + "\n");
+            kirjoittaja.append("-----------\n");
+            kirjoittaja.close();
         } else {
-             for (Object di : lista) {
-            kirjoittaja.append(di.toString() + "\n");
+            for (Object di : lista) {
+                kirjoittaja.append(di.toString() + "\n");
+            }
+
+            kirjoittaja.append(pelaaja + "\n");
+            kirjoittaja.append(tulokset.getYhteensa() + "\n");
+            kirjoittaja.append(tulokset.getOikein() + "\n");
+            kirjoittaja.append(tulokset.getVaarin() + "\n");
+            kirjoittaja.append("-----------\n");
+            kirjoittaja.close();
         }
 
-        kirjoittaja.append(pelaaja + "\n");
-        kirjoittaja.append(tulokset.getYhteensa() + "\n");
-        kirjoittaja.append(tulokset.getOikein() + "\n");
-        kirjoittaja.append(tulokset.getVaarin() + "\n");
-        kirjoittaja.append("-----------\n");
-        kirjoittaja.close();
-        }
 
 
-       
     }
 
     @SuppressWarnings("empty-statement")
@@ -117,7 +116,6 @@ public class Tiedostot {
         Scanner skanneri = new Scanner(tuloksetTiedosto);
         while (skanneri.hasNextLine()) {
             String di = skanneri.nextLine();
-            vanhatTulokset.add(di);
             lista.add(di);
         }
         skanneri.close();
@@ -130,15 +128,28 @@ public class Tiedostot {
 
     public boolean onkoSamaHenkilo(String nimi) throws FileNotFoundException {
         int i = 0;
+
         for (String di : lista) {
             if (nimi.equals(di)) {
-                int yhteensa = lista.get(i+1).charAt(9);
-                int oikein = lista.get(i+2).charAt(7);
-                int vaarin = lista.get(i+3).charAt(7);
-                
-                tulokset.yhteensaVastauksia(yhteensa);
-                tulokset.yhteensaOikein(oikein);
-                tulokset.yhteensaVaarin(vaarin);
+                String yhteensa = lista.get(i + 1); //yhteensa + arvo
+                char paikka = yhteensa.charAt(9); //paikan määritys
+                int numeroYht = getNumericValue(paikka); //itse numero
+                System.out.println("VANHA MÄÄRÄ PRKL " + numeroYht);
+
+                String oikein = lista.get(i + 2);
+                char paikkaOikein = oikein.charAt(7);
+                int numeroOikein = getNumericValue(paikkaOikein);
+                System.out.println("VANHA OIKEIN " + numeroOikein);
+
+                String vaarin = lista.get(i + 3);
+                char paikkaVaarin = vaarin.charAt(7);
+                int numeroVaarin = getNumericValue(paikkaVaarin);
+                System.out.println("väär" + numeroVaarin);
+
+                tulokset.yhteensaVastauksia(numeroYht);
+                tulokset.yhteensaOikein(numeroOikein);
+                tulokset.yhteensaVaarin(numeroVaarin);
+
                 poistaTiedostostaVanhaTulos(i);
                 i++;
                 return true;
@@ -146,14 +157,15 @@ public class Tiedostot {
         }
         return false;
     }
-    
-    
-    
-    public void poistaTiedostostaVanhaTulos(int i){
+
+    public static int getNumericValue(char ch) {
+        int numero = Character.getNumericValue(ch);
+        return numero;
+    }
+
+    public void poistaTiedostostaVanhaTulos(int i) {
         for (int j = 0; j < 5; j++) {
             lista.remove(i);
         }
     }
-    
-    
 }

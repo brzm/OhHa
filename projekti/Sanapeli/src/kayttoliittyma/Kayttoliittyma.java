@@ -48,7 +48,7 @@ public class Kayttoliittyma {
 
 
         while (true) {
-            System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat");
+            System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat, poista");
             String komento = lukija.nextLine();
 
             if (komento.equals("lisaa")) {
@@ -66,6 +66,8 @@ public class Kayttoliittyma {
                 tulokset(tulokset.getYhteensa(), tulokset.getOikein(), tulokset.getVaarin(), tulokset.getVastaukset());
             } else if (komento.equals("vanhat")) {
                 vanhatTulokset(tiedostot.getVanhatTulokset());
+            } else if(komento.equals("poista")){
+                poistaSana();
             }
         }
     }
@@ -186,5 +188,11 @@ public class Kayttoliittyma {
         for (String di : lista) {
             System.out.println(di);
         }
+    }
+    
+    private void poistaSana(){
+        System.out.println("poista sana:");
+        String sananPoisto=lukija.nextLine();
+        logiikka.poistaSanaListalta(sananPoisto);
     }
 }
