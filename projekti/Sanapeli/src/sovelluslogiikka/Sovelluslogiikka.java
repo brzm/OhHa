@@ -4,18 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import sanapeli.Sanat;
 
 /**
- * hoitaa Kayttoliittyman metodeja
+ * hoitaa sanalistan ja pelin metodit
  *
  * @author BRZM
  */
 public class Sovelluslogiikka {
 
-    private Map<String, String> sanalista = new HashMap<>();  
+    private Map<String, String> sanalista = new HashMap<>();
 
-    public Sovelluslogiikka(Tulokset tulos)  {
+    public Sovelluslogiikka(Tulokset tulos) {
     }
 
     public Map annaSanalista() {
@@ -38,10 +37,12 @@ public class Sovelluslogiikka {
         sanalista.put(suomi, englanti);
     }
 
-    public void lisaaSanapariSanat(Sanat sanat) {
-        sanalista.put(sanat.getSuomi(), sanat.getEnglanti());
-    }
-
+    /**
+     * palauttaa pelille suomeksi sanan
+     *
+     * @param i
+     * @return
+     */
     public String suomeksiSana(int i) {
 
         ArrayList<String> lista = new ArrayList<>();
@@ -78,7 +79,7 @@ public class Sovelluslogiikka {
 
         return false;
     }
-    
+
     /**
      * pakko kirjoittaa jotakin, eikä voi jättää sanoja "tyhjiksi"
      *
@@ -109,6 +110,7 @@ public class Sovelluslogiikka {
 
     /**
      * Tarkistaa onko vastaus oikein vai väärin
+     *
      * @param suomi
      * @param enkku
      * @param vastaus
@@ -125,5 +127,9 @@ public class Sovelluslogiikka {
 
     public int kuinkaMontaListassa() {
         return sanalista.size();
+    }
+
+    public void poistaSanaListalta(String sana) {
+        sanalista.remove(sana);
     }
 }
