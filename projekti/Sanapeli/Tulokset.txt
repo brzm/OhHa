@@ -28,3 +28,13 @@ Yhteensä 0
 Oikein 0
 Väärin 0
 -----------
+risto
+Yhteensä 0
+Oikein 0
+Väärin 0
+-----------
+risto
+Yhteensä 3
+Oikein 2
+Väärin 1
+-----------
