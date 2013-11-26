@@ -5,11 +5,14 @@
 package kayttoliittyma.graafinen;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
@@ -23,18 +26,19 @@ import sovelluslogiikka.Sovelluslogiikka;
  *
  * @author brzm
  */
-public class Graafinen implements Runnable {
+public class Graafinen extends JPanel {
 
     private JFrame frame;
     private Kayttoliittyma kayttoliittyma;
     private JLabel jlabel;
     private Sovelluslogiikka logiikka;
+    FlowLayout flowLayoutti = new FlowLayout();
 
     public Graafinen() throws IOException {
+        super(new GridLayout(1, 1));
         kayttoliittyma = new Kayttoliittyma();
     }
 
-    @Override
     public void run() {
         try {
 
@@ -43,10 +47,10 @@ public class Graafinen implements Runnable {
 //            kayttoliittyma.kaynnista();
 
             frame = new JFrame("Sanapeli");
-            frame.setPreferredSize(new Dimension(1000, 600));
+            frame.setPreferredSize(new Dimension(650, 650));
 
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(new Graafinen(), BorderLayout.CENTER);
 
             luoKomponentit(frame.getContentPane());
 
@@ -57,62 +61,41 @@ public class Graafinen implements Runnable {
         }
     }
 
-    private JPanel valikkoPaneeli(JButton lisaa, JButton pelaa, JButton tulokset, JButton vanhatTulokset, JButton sanat) {
-        JPanel paneeli = new JPanel(new GridLayout(1, 5));
-        paneeli.add(lisaa);
-        paneeli.add(pelaa);
-        paneeli.add(tulokset);
-        paneeli.add(vanhatTulokset);
-        paneeli.add(sanat);
-        return paneeli;
+    private void luoKomponentit(Container container) throws IOException {
+
+        JTabbedPane paneeli = new JTabbedPane();
+        ImageIcon kuva = kuva("eikuvaaprkl");
+
+        JComponent peli = vaihdaPaneelinTeksti("et tiedä mittää");
+        paneeli.addTab("Peli", kuva, peli, "Pelaa peliä poeka");
+
+        JComponent sanat = vaihdaPaneelinTeksti("pippeli");
+        paneeli.addTab("Sanat",kuva, sanat,"Tarkastele, poista, lisää sanoja");
+        
+        JComponent tulokset = vaihdaPaneelinTeksti("kaikki oikein");
+        paneeli.addTab("Tulokset",kuva, tulokset,"Tarkastele nykyisiä tai vanhoja tuloksia");
+
+
+
+        container.add(paneeli);
 
     }
 
-    private void luoKomponentit(final Container container) throws IOException {
-        JButton lisaa = new JButton("LISÄÄ");
-        JButton pelaa = new JButton("PELI");
-        JButton tulokset = new JButton("TULOKSET");
-        JButton vanhatTulokset = new JButton("VANHAT TULOKSET");
-        JButton sanat = new JButton("SANAT");
+    private JComponent vaihdaPaneelinTeksti(String teksti) {
+        JPanel paneeli = new JPanel(false);
+        JLabel uusiTeksti = new JLabel(teksti);
+        uusiTeksti.setHorizontalAlignment(JLabel.CENTER);
+        paneeli.setLayout(new GridLayout(1, 1));
+        paneeli.add(uusiTeksti);
+        return paneeli;
+    }
 
-        container.add(valikkoPaneeli(lisaa, pelaa, tulokset, vanhatTulokset, sanat), BorderLayout.NORTH);
-
-
-
-
-        pelaa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    JPanel peli = new JPanel();
-                    peli.setLayout(new BoxLayout(peli, BoxLayout.Y_AXIS));
-
-                    JLabel suomeksi = new JLabel("suomeksi");
-                    peli.add(suomeksi);
-                    JTextField vastaus = new JTextField("");
-                    peli.add(vastaus);
-
-                    container.add(peli);
-                } catch (Exception ex) {
-                    System.out.println(ex);
-                }
-
-
-            }
-        });
-
-        sanat.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    jlabel = kayttoliittyma.tulostaSanat(logiikka.annaSanalista());
-
-                } catch (Exception xx) {
-                    xx.getCause();
-                }
-
-            }
-        });
-
+    protected static ImageIcon kuva(String path) {
+        java.net.URL imgURL = Graafinen.class.getResource(path);
+        if (imgURL != null) {
+            return null;
+        } else {
+            return null;
+        }
     }
 }
