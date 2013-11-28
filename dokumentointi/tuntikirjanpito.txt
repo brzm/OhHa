@@ -1,3 +1,4 @@
 yli 9000h
 14.11 graafisen vaantamista, ei oikein onnistu. saman nimen poisto tuloksista
-21.11 tallennuksen korjaus, sanan poisto
+21.11 4h tallennuksen korjaus, sanan poisto
+28.11 4h graafisen muutto valilehtimuotoon

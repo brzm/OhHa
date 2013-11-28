@@ -47,7 +47,7 @@ public class Kayttoliittyma {
         String pelaaja = lukija.nextLine();
 
 
-        while (true) {
+//        while (true) {
             System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat, poista");
             String komento = lukija.nextLine();
 
@@ -59,7 +59,7 @@ public class Kayttoliittyma {
                 tiedostot.sanatTiedostoon();
                 tiedostot.tallennaTulokset(pelaaja);
                 System.out.println("Kiitos näkemiin.");
-                break;
+//                break;
             } else if (komento.equals("tulosta")) {
                 tulostaSanat(logiikka.annaSanalista());
             } else if (komento.equals("tulokset")) {
@@ -69,7 +69,7 @@ public class Kayttoliittyma {
             } else if(komento.equals("poista")){
                 poistaSana();
             }
-        }
+//        }
     }
 /**
  * Kysyy sanat, js tarkistaa ettei tyhjiä tai samoja sanoja lisätä
@@ -184,10 +184,13 @@ public class Kayttoliittyma {
      * @param lista
      * @throws FileNotFoundException 
      */
-    private void vanhatTulokset(ArrayList<String> lista) throws FileNotFoundException {
+    public String vanhatTulokset(ArrayList<String> lista) throws FileNotFoundException {
+        String teksti="";
         for (String di : lista) {
+            teksti=di+"\n";
             System.out.println(di);
         }
+        return teksti;
     }
     
     private void poistaSana(){
