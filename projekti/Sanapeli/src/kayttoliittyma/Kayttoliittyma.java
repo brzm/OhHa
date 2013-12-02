@@ -39,7 +39,7 @@ public class Kayttoliittyma {
      * Käynnistää pelin, kysyy komennot ja siirtää vastuun eteenpäin
      * @throws IOException 
      */
-    public void kaynnista() throws IOException {
+    public void kaynnista(String komentodinz) throws IOException {
 
         tiedostojenHaku();
 
@@ -49,7 +49,7 @@ public class Kayttoliittyma {
 
 //        while (true) {
             System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat, poista");
-            String komento = lukija.nextLine();
+            String komento = komentodinz;
 
             if (komento.equals("lisaa")) {
                 annetutSanat();
