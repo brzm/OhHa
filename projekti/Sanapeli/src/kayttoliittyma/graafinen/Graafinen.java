@@ -8,12 +8,10 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -33,6 +31,7 @@ public class Graafinen extends JPanel {
     private Sovelluslogiikka logiikka;
     private Tiedostot tiedostot;
     FlowLayout flowLayoutti = new FlowLayout();
+    private String nimi;
 
     public Graafinen() throws IOException {
         super(new GridLayout(1, 1));
@@ -43,7 +42,7 @@ public class Graafinen extends JPanel {
 
     public void run() {
         try {
-
+            nimenKyselyPopup();
             kayttoliittyma.tiedostojenHaku();
 //            kayttoliittyma.kaynnista();
 
@@ -57,6 +56,7 @@ public class Graafinen extends JPanel {
 
             frame.pack();
             frame.setVisible(true);
+            
         } catch (IOException ex) {
             Logger.getLogger(Graafinen.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,13 +72,13 @@ public class Graafinen extends JPanel {
         final JButton pelaa = new JButton("Pelaa");
         peli.add(pelaa);
         paneeli.addTab("Peli", null, peli, "Pelaa peliä poeka");
-        
+
         pelaa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    pelaa.add(luoPeliPaneeli(),BorderLayout.NORTH);
-                } catch(Exception a)  {
+                    pelaa.add(luoPeliPaneeli(), BorderLayout.NORTH);
+                } catch (Exception a) {
                     System.out.println(a);
                 }
             }
@@ -86,8 +86,8 @@ public class Graafinen extends JPanel {
 
 
 
-        
-        
+
+
 
         JComponent sanat = vaihdaPaneelinTeksti("Poista, lisää tai katsele sanoja");
 
@@ -142,22 +142,22 @@ public class Graafinen extends JPanel {
         paneeli.add(uusiTeksti);
         return paneeli;
     }
-    
-    private JPanel luoPeliPaneeli(){
-        JPanel paneeli = new JPanel(new GridLayout(2, 1));        
+
+    private JPanel luoPeliPaneeli() {
+        JPanel paneeli = new JPanel(new GridLayout(2, 1));
         paneeli.add(new JLabel("suomi"));
         paneeli.add(new JTextField("kirjoita tänne"));
         return paneeli;
     }
-    
-    private JPanel luoLisaaSana(){
+
+    private JPanel luoLisaaSana() {
         JPanel paneeli = new JPanel(new GridLayout(3, 2));
-        
+
         JLabel suomi = new JLabel("Suomeksi ");
         JTextField suomiTeksti = new JTextField("");
         JLabel enkku = new JLabel("Englanniksi ");
         JTextField enkkuteksti = new JTextField();
-        
+
         paneeli.add(new JLabel("Suomeksi "));
         paneeli.add(new JTextField(""));
         paneeli.add(new JLabel("englanniksi"));
@@ -166,8 +166,8 @@ public class Graafinen extends JPanel {
         paneeli.add(new JLabel(""));
         return paneeli;
     }
-    
-    private JPanel luoPoistaSana(){
+
+    private JPanel luoPoistaSana() {
         JPanel paneeli = new JPanel(new GridLayout(2, 2));
         paneeli.add(new JLabel("Anna suomeksi sana"));
         paneeli.add(new JTextField());
@@ -175,11 +175,26 @@ public class Graafinen extends JPanel {
         paneeli.add(new JLabel());
         return paneeli;
     }
-    
-    private JPanel luoSanalista(){
+
+    private JPanel luoSanalista() {
         JPanel paneeli = new JPanel(new GridLayout(1, 2));
         paneeli.add(new JButton("Tulosta sanat"));
         paneeli.add(new JLabel("prkleesti sanoja"));
         return paneeli;
     }
+
+    private void nimenKyselyPopup() {
+        final JFrame parent = new JFrame();
+
+        parent.pack();
+        parent.setVisible(true);
+
+        nimi = JOptionPane.showInputDialog(parent, "Anna nimi", null);
+        
+        String teksti = "asd";
+        int di = teksti.charAt(0)+teksti.charAt(1);
+        System.out.println(di);
+
+    }
 }
+
