@@ -56,7 +56,7 @@ public class Graafinen extends JPanel {
 
             frame.pack();
             frame.setVisible(true);
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Graafinen.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,7 +179,9 @@ public class Graafinen extends JPanel {
     private JPanel luoSanalista() {
         JPanel paneeli = new JPanel(new GridLayout(1, 2));
         paneeli.add(new JButton("Tulosta sanat"));
-        paneeli.add(new JLabel("prkleesti sanoja"));
+        JList sanalista = new JList();
+        sanalista.add(new JLabel("sdasad"));
+        paneeli.add(sanalista);
         return paneeli;
     }
 
@@ -190,11 +192,8 @@ public class Graafinen extends JPanel {
         parent.setVisible(true);
 
         nimi = JOptionPane.showInputDialog(parent, "Anna nimi", null);
-        
-        String teksti = "asd";
-        int di = teksti.charAt(0)+teksti.charAt(1);
-        System.out.println(di);
+        System.out.println(nimi);
+
 
     }
 }
-

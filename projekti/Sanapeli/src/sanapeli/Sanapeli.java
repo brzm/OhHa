@@ -18,7 +18,7 @@ public class Sanapeli {
         di.run();    
         
        
-//        
+        
 //        kayttoliittyma.Kayttoliittyma dinz=new Kayttoliittyma();
 //        dinz.kaynnista();
     }

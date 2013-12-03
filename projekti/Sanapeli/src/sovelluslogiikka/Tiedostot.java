@@ -131,24 +131,37 @@ public class Tiedostot {
 
         for (String di : lista) {
             if (nimi.equals(di)) {
+                
                 String yhteensa = lista.get(i + 1); //yhteensa + arvo
-                char paikka = yhteensa.charAt(9); //paikan määritys
-                int numeroYht = getNumericValue(paikka); //itse numero
-                System.out.println("VANHA MÄÄRÄ PRKL " + numeroYht);
+                if (yhteensa.length() == 10) {
+                    char paikka = yhteensa.charAt(9); //paikan määritys
+                    int numeroYht = getNumericValue(paikka); //itse numero
+                    tulokset.yhteensaVastauksia(numeroYht);
+                } else {
+                    String yhteensaYht =""+ yhteensa.charAt(9) + yhteensa.charAt(10);
+                    tulokset.yhteensaVastauksia(kaksiNumeroa(yhteensaYht));
+                }
 
                 String oikein = lista.get(i + 2);
-                char paikkaOikein = oikein.charAt(7);
-                int numeroOikein = getNumericValue(paikkaOikein);
-                System.out.println("VANHA OIKEIN " + numeroOikein);
+                if (oikein.length() == 10) {
+                    char paikkaOikein = oikein.charAt(9);
+                    int numeroOikein = getNumericValue(paikkaOikein);
+                    tulokset.yhteensaOikein(numeroOikein);
+                } else {
+                    String yhtOik = "" + oikein.charAt(9) + oikein.charAt(10);
+                    tulokset.yhteensaOikein(kaksiNumeroa(yhtOik));
+                }
+
 
                 String vaarin = lista.get(i + 3);
-                char paikkaVaarin = vaarin.charAt(7);
-                int numeroVaarin = getNumericValue(paikkaVaarin);
-                System.out.println("väär" + numeroVaarin);
-
-                tulokset.yhteensaVastauksia(numeroYht);
-                tulokset.yhteensaOikein(numeroOikein);
-                tulokset.yhteensaVaarin(numeroVaarin);
+                if (vaarin.length() == 10) {
+                    char paikkaVaarin = vaarin.charAt(9);
+                    int numeroVaarin = getNumericValue(paikkaVaarin);
+                    tulokset.yhteensaVaarin(numeroVaarin);
+                } else {
+                    String yhtVaar = "" + vaarin.charAt(9) + vaarin.charAt(10);
+                    tulokset.yhteensaVaarin(kaksiNumeroa(yhtVaar));
+                }
 
                 poistaTiedostostaVanhaTulos(i);
                 i++;
@@ -156,6 +169,10 @@ public class Tiedostot {
             }
         }
         return false;
+    }
+
+    private int kaksiNumeroa(String numerot) {
+        return Integer.parseInt(numerot);
     }
 
     public static int getNumericValue(char ch) {

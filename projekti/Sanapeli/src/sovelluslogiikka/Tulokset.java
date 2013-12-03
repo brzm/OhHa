@@ -46,11 +46,11 @@ public class Tulokset {
     }
 
     public String getOikein() {
-        return "Oikein " + kuinkamontaoikein;
+        return "Oikein   " + kuinkamontaoikein;
     }
 
     public String getVaarin() {
-        return "Väärin " + kuinkaMontaVaarin();
+        return "Väärin   " + kuinkaMontaVaarin();
     }
 
     public String getYhteensa() {
@@ -68,12 +68,12 @@ public class Tulokset {
 
     public void yhteensaOikein(int i) {
         int yhteensa = i + kuinkamontaoikein;
-        kaikkiOikeinLkm = "Oikein " + yhteensa;
+        kaikkiOikeinLkm = "Oikein   " + yhteensa;
     }
 
     public void yhteensaVaarin(int i) {
         int yhteensa = i + kuinkaMontaVaarin();
-        kaikkiVaarinLkm = "Väärin " + yhteensa;
+        kaikkiVaarinLkm = "Väärin   " + yhteensa;
     }
 
     public String palautaKaikkiYht() {

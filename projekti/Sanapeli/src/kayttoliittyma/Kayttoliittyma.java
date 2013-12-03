@@ -39,7 +39,7 @@ public class Kayttoliittyma {
      * Käynnistää pelin, kysyy komennot ja siirtää vastuun eteenpäin
      * @throws IOException 
      */
-    public void kaynnista(String komentodinz) throws IOException {
+    public void kaynnista() throws IOException {
 
         tiedostojenHaku();
 
@@ -47,9 +47,9 @@ public class Kayttoliittyma {
         String pelaaja = lukija.nextLine();
 
 
-//        while (true) {
+        while (true) {
             System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat, poista");
-            String komento = komentodinz;
+            String komento = lukija.nextLine();
 
             if (komento.equals("lisaa")) {
                 annetutSanat();
@@ -59,7 +59,7 @@ public class Kayttoliittyma {
                 tiedostot.sanatTiedostoon();
                 tiedostot.tallennaTulokset(pelaaja);
                 System.out.println("Kiitos näkemiin.");
-//                break;
+                break;
             } else if (komento.equals("tulosta")) {
                 tulostaSanat(logiikka.annaSanalista());
             } else if (komento.equals("tulokset")) {
@@ -69,7 +69,7 @@ public class Kayttoliittyma {
             } else if(komento.equals("poista")){
                 poistaSana();
             }
-//        }
+        }
     }
 /**
  * Kysyy sanat, js tarkistaa ettei tyhjiä tai samoja sanoja lisätä
@@ -146,6 +146,17 @@ public class Kayttoliittyma {
             }
         }
     }
+    
+    public JLabel suomeksiSanaPeli(){
+        Random arvonta = new Random();
+        int monesko = arvonta.nextInt(logiikka.kuinkaMontaListassa());
+
+            String suomeksiSana = logiikka.suomeksiSana(monesko);
+            JLabel sana=new JLabel("Suomeksi: "+suomeksiSana);
+            return sana;
+    }
+    
+    
 
     /**
      * tulostaa sanalistan sanat

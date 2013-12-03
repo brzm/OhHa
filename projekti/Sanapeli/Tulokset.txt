@@ -1,15 +1,5 @@
 asd
-Yhteensä 8
-Oikein 4
-Väärin 4
------------
-risto
-Yhteensä 0
-Oikein 0
-Väärin 0
------------
-risto
-Yhteensä 3
-Oikein 2
-Väärin 1
+Yhteensä 15
+Oikein   5
+Väärin   28
 -----------
