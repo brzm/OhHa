@@ -39,17 +39,17 @@ public class Kayttoliittyma {
      * Käynnistää pelin, kysyy komennot ja siirtää vastuun eteenpäin
      * @throws IOException 
      */
-    public void kaynnista() throws IOException {
+    public void kaynnista(String komentoads) throws IOException {
 
         tiedostojenHaku();
 
-        System.out.println("Anna nimi: ");
-        String pelaaja = lukija.nextLine();
+//        System.out.println("Anna nimi: ");
+        String pelaaja = "asd";
 
 
-        while (true) {
+//        while (true) {
             System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat, poista");
-            String komento = lukija.nextLine();
+            String komento = komentoads;
 
             if (komento.equals("lisaa")) {
                 annetutSanat();
@@ -59,7 +59,7 @@ public class Kayttoliittyma {
                 tiedostot.sanatTiedostoon();
                 tiedostot.tallennaTulokset(pelaaja);
                 System.out.println("Kiitos näkemiin.");
-                break;
+//                break;
             } else if (komento.equals("tulosta")) {
                 tulostaSanat(logiikka.annaSanalista());
             } else if (komento.equals("tulokset")) {
@@ -69,7 +69,7 @@ public class Kayttoliittyma {
             } else if(komento.equals("poista")){
                 poistaSana();
             }
-        }
+//        }
     }
 /**
  * Kysyy sanat, js tarkistaa ettei tyhjiä tai samoja sanoja lisätä
@@ -198,7 +198,7 @@ public class Kayttoliittyma {
     public String vanhatTulokset(ArrayList<String> lista) throws FileNotFoundException {
         String teksti="";
         for (String di : lista) {
-            teksti=di+"\n";
+            teksti=di;
             System.out.println(di);
         }
         return teksti;

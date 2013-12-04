@@ -85,10 +85,6 @@ public class Graafinen extends JPanel {
         });
 
 
-
-
-
-
         JComponent sanat = vaihdaPaneelinTeksti("Poista, lisää tai katsele sanoja");
 
         JTabbedPane vaihtoehdotSanoille = new JTabbedPane();
@@ -107,23 +103,19 @@ public class Graafinen extends JPanel {
         JComponent tulokset = vaihdaPaneelinTeksti("Katsele nykyisiä tai vanhoja vanhoja");
         JTabbedPane vaihtoehdotTuloksille = new JTabbedPane();
 
-        JComponent vanhatTulokset = new JPanel();
-        String vanhatTuloksetdas = kayttoliittyma.vanhatTulokset(tiedostot.getVanhatTulokset());
+        JComponent vanhatTuloksetPaneeli = new JPanel();
+        String vanhatTulokset = kayttoliittyma.vanhatTulokset(tiedostot.getVanhatTulokset());
+        
 
+        JTextArea tekstiPaneeli = new JTextArea(vanhatTulokset);
 
-        JTextPane tekstiPaneeli = new JTextPane();
-        JScrollPane paneScrollPane = new JScrollPane(tekstiPaneeli);
-        paneScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        paneScrollPane.setPreferredSize(new Dimension(250, 155));
-        paneScrollPane.setMinimumSize(new Dimension(10, 10));
-
-        vanhatTulokset.add(tekstiPaneeli);
+        vanhatTuloksetPaneeli.add(tekstiPaneeli);
 
 
         JComponent nykyisetTulokset = new JPanel();
         nykyisetTulokset.add(new JButton("Tulosta"));
 
-        vaihtoehdotTuloksille.addTab("Vanhat tulokset", vanhatTulokset);
+        vaihtoehdotTuloksille.addTab("Vanhat tulokset", vanhatTuloksetPaneeli);
         vaihtoehdotTuloksille.addTab("Tämänhetkiset tulokset", nykyisetTulokset);
         tulokset.add(vaihtoehdotTuloksille);
         paneeli.addTab("Tulokset", null, tulokset, "Tarkastele nykyisiä tai vanhoja tuloksia");
@@ -176,12 +168,12 @@ public class Graafinen extends JPanel {
         return paneeli;
     }
 
-    private JPanel luoSanalista() {
-        JPanel paneeli = new JPanel(new GridLayout(1, 2));
-        paneeli.add(new JButton("Tulosta sanat"));
-        JList sanalista = new JList();
-        sanalista.add(new JLabel("sdasad"));
-        paneeli.add(sanalista);
+    private JPanel luoSanalista() throws IOException {
+        JPanel paneeli = new JPanel();
+        paneeli.add(new JButton("Tulosta sanat"), BorderLayout.NORTH);
+        
+        
+        paneeli.add(new JTextPane());
         return paneeli;
     }
 
