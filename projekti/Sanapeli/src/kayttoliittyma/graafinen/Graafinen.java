@@ -32,12 +32,16 @@ public class Graafinen extends JPanel {
     private Tiedostot tiedostot;
     FlowLayout flowLayoutti = new FlowLayout();
     private String nimi;
+    private LisaaSana lisaaSana;
+    private PoistaSana poistaSana;
 
     public Graafinen() throws IOException {
         super(new GridLayout(1, 1));
         kayttoliittyma = new Kayttoliittyma();
         logiikka = new Sovelluslogiikka(null);
         tiedostot = new Tiedostot(logiikka, null);
+        lisaaSana= new LisaaSana(kayttoliittyma);
+        poistaSana=new PoistaSana(kayttoliittyma);
     }
 
     public void run() {
@@ -61,13 +65,12 @@ public class Graafinen extends JPanel {
             Logger.getLogger(Graafinen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+        
     private void luoKomponentit(Container container) throws IOException {
 
         JTabbedPane paneeli = new JTabbedPane();
 
-
-        JComponent peli = new JPanel();
+        final JComponent peli = new JPanel();
 
         final JButton pelaa = new JButton("Pelaa");
         peli.add(pelaa);
@@ -77,7 +80,8 @@ public class Graafinen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    pelaa.add(luoPeliPaneeli(), BorderLayout.NORTH);
+                    
+                    peli.add(luoPeliPaneeli(), BorderLayout.NORTH);
                 } catch (Exception a) {
                     System.out.println(a);
                 }
@@ -88,14 +92,16 @@ public class Graafinen extends JPanel {
         JComponent sanat = vaihdaPaneelinTeksti("Poista, lisää tai katsele sanoja");
 
         JTabbedPane vaihtoehdotSanoille = new JTabbedPane();
-        JComponent poista = luoPoistaSana();
-        JComponent lisaa = luoLisaaSana();
+        JComponent poista = poistaSana.luoPoistaSana();
+        JComponent lisaa = lisaaSana.luoLisaaSana();
         JComponent sanalista = luoSanalista();
 
         vaihtoehdotSanoille.addTab("Poista", poista);
         vaihtoehdotSanoille.addTab("Lisää", lisaa);
         vaihtoehdotSanoille.addTab("Sanalista", sanalista);
+                       
         sanat.add(vaihtoehdotSanoille);
+        
         paneeli.addTab("Sanat", null, sanat, "Tarkastele, poista, lisää sanoja");
 
 
@@ -141,33 +147,7 @@ public class Graafinen extends JPanel {
         paneeli.add(new JTextField("kirjoita tänne"));
         return paneeli;
     }
-
-    private JPanel luoLisaaSana() {
-        JPanel paneeli = new JPanel(new GridLayout(3, 2));
-
-        JLabel suomi = new JLabel("Suomeksi ");
-        JTextField suomiTeksti = new JTextField("");
-        JLabel enkku = new JLabel("Englanniksi ");
-        JTextField enkkuteksti = new JTextField();
-
-        paneeli.add(new JLabel("Suomeksi "));
-        paneeli.add(new JTextField(""));
-        paneeli.add(new JLabel("englanniksi"));
-        paneeli.add(new JTextField());
-        paneeli.add(new JButton("Lisää sana"));
-        paneeli.add(new JLabel(""));
-        return paneeli;
-    }
-
-    private JPanel luoPoistaSana() {
-        JPanel paneeli = new JPanel(new GridLayout(2, 2));
-        paneeli.add(new JLabel("Anna suomeksi sana"));
-        paneeli.add(new JTextField());
-        paneeli.add(new JButton("Poista"));
-        paneeli.add(new JLabel());
-        return paneeli;
-    }
-
+   
     private JPanel luoSanalista() throws IOException {
         JPanel paneeli = new JPanel();
         paneeli.add(new JButton("Tulosta sanat"), BorderLayout.NORTH);

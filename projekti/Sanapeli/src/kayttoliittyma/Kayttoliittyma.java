@@ -29,15 +29,16 @@ public class Kayttoliittyma {
 
         tiedostot = new Tiedostot(logiikka, tulokset);
     }
-    
-    public void tiedostojenHaku() throws FileNotFoundException, IOException{
+
+    public void tiedostojenHaku() throws FileNotFoundException, IOException {
         tiedostot.sanatTiedostosta();
         tiedostot.lueVanhatTulokset();
     }
 
     /**
      * Käynnistää pelin, kysyy komennot ja siirtää vastuun eteenpäin
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     public void kaynnista(String komentoads) throws IOException {
 
@@ -48,32 +49,33 @@ public class Kayttoliittyma {
 
 
 //        while (true) {
-            System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat, poista");
-            String komento = komentoads;
+        System.out.println("Komennot: lisaa, pelaa, lopeta, tulosta, tulokset, vanhat, poista");
+        String komento = komentoads;
 
-            if (komento.equals("lisaa")) {
-                annetutSanat();
-            } else if (komento.equals("pelaa")) {
-                pelaaPelia();
-            } else if (komento.equals("lopeta")) {
-                tiedostot.sanatTiedostoon();
-                tiedostot.tallennaTulokset(pelaaja);
-                System.out.println("Kiitos näkemiin.");
+        if (komento.equals("lisaa")) {
+            annetutSanat();
+        } else if (komento.equals("pelaa")) {
+            pelaaPelia();
+        } else if (komento.equals("lopeta")) {
+            tiedostot.sanatTiedostoon();
+            tiedostot.tallennaTulokset(pelaaja);
+            System.out.println("Kiitos näkemiin.");
 //                break;
-            } else if (komento.equals("tulosta")) {
-                tulostaSanat(logiikka.annaSanalista());
-            } else if (komento.equals("tulokset")) {
-                tulokset(tulokset.getYhteensa(), tulokset.getOikein(), tulokset.getVaarin(), tulokset.getVastaukset());
-            } else if (komento.equals("vanhat")) {
-                vanhatTulokset(tiedostot.getVanhatTulokset());
-            } else if(komento.equals("poista")){
-                poistaSana();
-            }
+        } else if (komento.equals("tulosta")) {
+            tulostaSanat(logiikka.annaSanalista());
+        } else if (komento.equals("tulokset")) {
+            tulokset(tulokset.getYhteensa(), tulokset.getOikein(), tulokset.getVaarin(), tulokset.getVastaukset());
+        } else if (komento.equals("vanhat")) {
+            vanhatTulokset(tiedostot.getVanhatTulokset());
+        } else if (komento.equals("poista")) {
+            poistaSana("das");
+        }
 //        }
     }
-/**
- * Kysyy sanat, js tarkistaa ettei tyhjiä tai samoja sanoja lisätä
- */
+
+    /**
+     * Kysyy sanat, js tarkistaa ettei tyhjiä tai samoja sanoja lisätä
+     */
     public void annetutSanat() {
         System.out.println("Anna suomeksi: ");
         String suomi = lukija.nextLine();
@@ -103,8 +105,9 @@ public class Kayttoliittyma {
 
     /**
      * varmistaa ettei ole tyhjä sana
+     *
      * @param sana
-     * @return 
+     * @return
      */
     private boolean onkoTyhjaSana(String sana) {
         if (logiikka.eiTyhjiaSanoja(sana, sana) == false) {
@@ -116,7 +119,8 @@ public class Kayttoliittyma {
 
     /**
      * pelin pelaaminen, kysyy sanat ja antaa tulokset muualle
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     public void pelaaPelia() throws IOException {
 
@@ -146,27 +150,26 @@ public class Kayttoliittyma {
             }
         }
     }
-    
-    public JLabel suomeksiSanaPeli(){
+
+    public JLabel suomeksiSanaPeli() {
         Random arvonta = new Random();
         int monesko = arvonta.nextInt(logiikka.kuinkaMontaListassa());
 
-            String suomeksiSana = logiikka.suomeksiSana(monesko);
-            JLabel sana=new JLabel("Suomeksi: "+suomeksiSana);
-            return sana;
+        String suomeksiSana = logiikka.suomeksiSana(monesko);
+        JLabel sana = new JLabel("Suomeksi: " + suomeksiSana);
+        return sana;
     }
-    
-    
 
     /**
      * tulostaa sanalistan sanat
-     * @param map 
+     *
+     * @param map
      */
     public JLabel tulostaSanat(Map<String, String> map) {
         JLabel sanat = new JLabel("");
         System.out.println("Sanoja yhteensä: " + logiikka.kuinkaMontaListassa());
         for (String di : map.keySet()) {
-            sanat.setText(di + " = " + map.get(di)+"\n");
+            sanat.setText(di + " = " + map.get(di) + "\n");
             System.out.println(di + " = " + map.get(di));
         }
         return sanat;
@@ -174,11 +177,12 @@ public class Kayttoliittyma {
 
     /**
      * tulostaa tämänhetkiset tulokset
+     *
      * @param yht
      * @param oik
      * @param vaar
      * @param lista
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     private void tulokset(String yht, String oik, String vaar, ArrayList<String> lista) throws FileNotFoundException {
         System.out.println(yht);
@@ -192,21 +196,24 @@ public class Kayttoliittyma {
 
     /**
      * tulostaa tiedostossa olevat vanhat tulokset
+     *
      * @param lista
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     public String vanhatTulokset(ArrayList<String> lista) throws FileNotFoundException {
-        String teksti="";
+        String teksti = "";
         for (String di : lista) {
-            teksti=di;
+            teksti = di;
             System.out.println(di);
         }
         return teksti;
     }
-    
-    private void poistaSana(){
-        System.out.println("poista sana:");
-        String sananPoisto=lukija.nextLine();
-        logiikka.poistaSanaListalta(sananPoisto);
+
+    public void poistaSana(String sana) {
+        logiikka.poistaSanaListalta(sana);
+    }
+
+    public void lisaaSanat(String suomi, String eng) {
+        logiikka.lisaaSanapari(suomi, eng);
     }
 }
