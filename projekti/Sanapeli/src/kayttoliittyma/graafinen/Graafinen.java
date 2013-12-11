@@ -8,9 +8,11 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,8 +42,8 @@ public class Graafinen extends JPanel {
         kayttoliittyma = new Kayttoliittyma();
         logiikka = new Sovelluslogiikka(null);
         tiedostot = new Tiedostot(logiikka, null);
-        lisaaSana= new LisaaSana(kayttoliittyma);
-        poistaSana=new PoistaSana(kayttoliittyma);
+        lisaaSana = new LisaaSana(kayttoliittyma, frame);
+        poistaSana = new PoistaSana(kayttoliittyma);
     }
 
     public void run() {
@@ -65,7 +67,7 @@ public class Graafinen extends JPanel {
             Logger.getLogger(Graafinen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
+
     private void luoKomponentit(Container container) throws IOException {
 
         JTabbedPane paneeli = new JTabbedPane();
@@ -80,7 +82,7 @@ public class Graafinen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    
+
                     peli.add(luoPeliPaneeli(), BorderLayout.NORTH);
                 } catch (Exception a) {
                     System.out.println(a);
@@ -99,9 +101,9 @@ public class Graafinen extends JPanel {
         vaihtoehdotSanoille.addTab("Poista", poista);
         vaihtoehdotSanoille.addTab("Lisää", lisaa);
         vaihtoehdotSanoille.addTab("Sanalista", sanalista);
-                       
+
         sanat.add(vaihtoehdotSanoille);
-        
+
         paneeli.addTab("Sanat", null, sanat, "Tarkastele, poista, lisää sanoja");
 
 
@@ -111,7 +113,7 @@ public class Graafinen extends JPanel {
 
         JComponent vanhatTuloksetPaneeli = new JPanel();
         String vanhatTulokset = kayttoliittyma.vanhatTulokset(tiedostot.getVanhatTulokset());
-        
+
 
         JTextArea tekstiPaneeli = new JTextArea(vanhatTulokset);
 
@@ -147,12 +149,12 @@ public class Graafinen extends JPanel {
         paneeli.add(new JTextField("kirjoita tänne"));
         return paneeli;
     }
-   
+
     private JPanel luoSanalista() throws IOException {
         JPanel paneeli = new JPanel();
         paneeli.add(new JButton("Tulosta sanat"), BorderLayout.NORTH);
-        
-        
+
+
         paneeli.add(new JTextPane());
         return paneeli;
     }
@@ -167,5 +169,48 @@ public class Graafinen extends JPanel {
         System.out.println(nimi);
 
 
+
+    }
+
+    public void windowClosing(WindowEvent e) {
+
+        ActionListener task = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    kayttoliittyma.kaynnista("lopeta");
+                } catch (Exception xc) {
+                    System.out.println(xc);
+                }
+            }
+        };
+
+    }
+
+    public void lisaysPopup(String fin, String eng) throws IOException {
+        if (kayttoliittyma.tyhjaSanaKaks(fin, eng)) {
+            JOptionPane.showMessageDialog(frame, "Kirjoita kumpaankin kenttään jotakin!");
+        } else {
+            int n = JOptionPane.showConfirmDialog(frame, "Lisätäänkö sana " + fin + " = " + eng + "?", "Sanan lisäys", JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION) {
+                kayttoliittyma.lisaaSanat(fin, eng);
+                kayttoliittyma.kaynnista("tulosta");
+            }
+
+        }
+    }
+
+    public void poistoPopup(String fin) throws IOException {
+        if (kayttoliittyma.tyhjaSana(fin)) {
+            JOptionPane.showMessageDialog(frame, "Kirjoita jotakin, tyhjää sanaa ei voi poistaa!");
+        } else {
+            int n = JOptionPane.showConfirmDialog(frame, "Poistetaanko sana " + fin+"?", "Sanan poisto", JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION) {
+                kayttoliittyma.poistaSana(fin);
+                kayttoliittyma.kaynnista("tulosta");
+            }
+
+        }
     }
 }

@@ -7,6 +7,7 @@ package kayttoliittyma.graafinen;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,15 +26,15 @@ public class PoistaSana extends JPanel {
         kayttoliittyma = liittyma;
     }
 
-    public JPanel luoPoistaSana() {
+    public JPanel luoPoistaSana() throws IOException {
+        final Graafinen graafinen = new Graafinen();
         sana = new JTextField();
         JButton nappi = new JButton("Poista");
         nappi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    kayttoliittyma.poistaSana(sana.getText());
-                    kayttoliittyma.kaynnista("tulosta");
+                    graafinen.poistoPopup(sana.getText());
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }

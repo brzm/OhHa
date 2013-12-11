@@ -216,4 +216,18 @@ public class Kayttoliittyma {
     public void lisaaSanat(String suomi, String eng) {
         logiikka.lisaaSanapari(suomi, eng);
     }
+    
+    public boolean tyhjaSana(String sana){
+        if(sana.equals("")){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean tyhjaSanaKaks(String eka, String toka){
+        if(eka.equals("")||toka.equals("")){
+            return true;
+        }
+        return false;
+    }
 }
