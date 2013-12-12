@@ -44,13 +44,11 @@ public class Sovelluslogiikka {
      * @return
      */
     public String suomeksiSana(int i) {
-
         ArrayList<String> lista = new ArrayList<>();
 
         for (String di : sanalista.keySet()) {
             lista.add(di);
         }
-
         return lista.get(i);
     }
 
@@ -60,7 +58,7 @@ public class Sovelluslogiikka {
      * @param i parametri :D
      * @return englanniksi sana
      */
-    public String englanniksiSana(String i) {
+    public String englanniksiSana(String i) {        
         return sanalista.get(i);
     }
 

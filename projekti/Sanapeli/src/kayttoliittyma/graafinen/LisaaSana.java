@@ -4,14 +4,12 @@
  */
 package kayttoliittyma.graafinen;
 
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import kayttoliittyma.Kayttoliittyma;
@@ -25,11 +23,9 @@ public class LisaaSana extends JPanel {
     private JTextField suomiTeksti;
     private JTextField enkkuteksti;
     private kayttoliittyma.Kayttoliittyma kayttoliittyma;
-    private Frame frame;
 
-    public LisaaSana(Kayttoliittyma liittyma, Frame frame) throws IOException {
+    public LisaaSana(Kayttoliittyma liittyma) throws IOException {
         kayttoliittyma = liittyma;
-        this.frame = frame;
     }
 
     public JPanel luoLisaaSana() throws IOException {
@@ -38,14 +34,14 @@ public class LisaaSana extends JPanel {
         suomiTeksti = new JTextField();
         enkkuteksti = new JTextField();
         final Graafinen graafinen = new Graafinen();
-        
+
 
         JButton lisaaNappi = new JButton("Lisää sana");
 
         lisaaNappi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {                    
+                try {
                     graafinen.lisaysPopup(suomiTeksti.getText(), enkkuteksti.getText());
                 } catch (Exception ex) {
                     System.out.println(ex);

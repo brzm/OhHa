@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import kayttoliittyma.Kayttoliittyma;
-import sovelluslogiikka.Sovelluslogiikka;
-import sovelluslogiikka.Tiedostot;
 
 /**
  * Graafinen käyttöliittymä, jossa ohjeet ja tekstikäyttöliittmän käynnistys
@@ -30,20 +27,24 @@ public class Graafinen extends JPanel {
 
     private JFrame frame;
     private Kayttoliittyma kayttoliittyma;
-    private Sovelluslogiikka logiikka;
-    private Tiedostot tiedostot;
     FlowLayout flowLayoutti = new FlowLayout();
     private String nimi;
     private LisaaSana lisaaSana;
     private PoistaSana poistaSana;
+    private PelaaPeli pelaaPeli;
+    private Sanalista sanalista;
+    private NykyisetTulokset nykyisetTulokset;
+    private VanhatTulokset vanhatTulokset;
 
     public Graafinen() throws IOException {
         super(new GridLayout(1, 1));
         kayttoliittyma = new Kayttoliittyma();
-        logiikka = new Sovelluslogiikka(null);
-        tiedostot = new Tiedostot(logiikka, null);
-        lisaaSana = new LisaaSana(kayttoliittyma, frame);
+        lisaaSana = new LisaaSana(kayttoliittyma);
         poistaSana = new PoistaSana(kayttoliittyma);
+        pelaaPeli = new PelaaPeli(kayttoliittyma);
+        sanalista = new Sanalista(kayttoliittyma);
+        nykyisetTulokset = new NykyisetTulokset();
+        vanhatTulokset=new VanhatTulokset(kayttoliittyma);
     }
 
     public void run() {
@@ -72,60 +73,32 @@ public class Graafinen extends JPanel {
 
         JTabbedPane paneeli = new JTabbedPane();
 
-        final JComponent peli = new JPanel();
-
-        final JButton pelaa = new JButton("Pelaa");
-        peli.add(pelaa);
-        paneeli.addTab("Peli", null, peli, "Pelaa peliä poeka");
-
-        pelaa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-
-                    peli.add(luoPeliPaneeli(), BorderLayout.NORTH);
-                } catch (Exception a) {
-                    System.out.println(a);
-                }
-            }
-        });
-
+        JComponent peliPaneeli = pelaaPeli.luoPeliPaneeli();
+        paneeli.addTab("Peli", null, peliPaneeli, "Pelaa peliä poeka");
 
         JComponent sanat = vaihdaPaneelinTeksti("Poista, lisää tai katsele sanoja");
 
-        JTabbedPane vaihtoehdotSanoille = new JTabbedPane();
-        JComponent poista = poistaSana.luoPoistaSana();
-        JComponent lisaa = lisaaSana.luoLisaaSana();
-        JComponent sanalista = luoSanalista();
+        JTabbedPane vaihtoehdotSanoilleTab = new JTabbedPane();
+        JComponent poistaPaneeli = poistaSana.luoPoistaSana();
+        JComponent lisaaPaneeli = lisaaSana.luoLisaaSana();
+        JComponent sanalistaPaneeli = sanalista.luoSanalista();
 
-        vaihtoehdotSanoille.addTab("Poista", poista);
-        vaihtoehdotSanoille.addTab("Lisää", lisaa);
-        vaihtoehdotSanoille.addTab("Sanalista", sanalista);
+        vaihtoehdotSanoilleTab.addTab("Poista", poistaPaneeli);
+        vaihtoehdotSanoilleTab.addTab("Lisää", lisaaPaneeli);
+        vaihtoehdotSanoilleTab.addTab("Sanalista", sanalistaPaneeli);
 
-        sanat.add(vaihtoehdotSanoille);
-
+        sanat.add(vaihtoehdotSanoilleTab);
         paneeli.addTab("Sanat", null, sanat, "Tarkastele, poista, lisää sanoja");
 
-
-
         JComponent tulokset = vaihdaPaneelinTeksti("Katsele nykyisiä tai vanhoja vanhoja");
-        JTabbedPane vaihtoehdotTuloksille = new JTabbedPane();
-
-        JComponent vanhatTuloksetPaneeli = new JPanel();
-        String vanhatTulokset = kayttoliittyma.vanhatTulokset(tiedostot.getVanhatTulokset());
-
-
-        JTextArea tekstiPaneeli = new JTextArea(vanhatTulokset);
-
-        vanhatTuloksetPaneeli.add(tekstiPaneeli);
+        JTabbedPane vaihtoehdotTuloksilleTab = new JTabbedPane();        
+        JComponent vanhatTuloksetPaneeli = vanhatTulokset.luoVanhatTulokset();
+        JComponent nykyisetTuloksetPaneeli = nykyisetTulokset.luoNykyisetTulokset();
 
 
-        JComponent nykyisetTulokset = new JPanel();
-        nykyisetTulokset.add(new JButton("Tulosta"));
-
-        vaihtoehdotTuloksille.addTab("Vanhat tulokset", vanhatTuloksetPaneeli);
-        vaihtoehdotTuloksille.addTab("Tämänhetkiset tulokset", nykyisetTulokset);
-        tulokset.add(vaihtoehdotTuloksille);
+        vaihtoehdotTuloksilleTab.addTab("Vanhat tulokset", vanhatTuloksetPaneeli);
+        vaihtoehdotTuloksilleTab.addTab("Tämänhetkiset tulokset", nykyisetTuloksetPaneeli);
+        tulokset.add(vaihtoehdotTuloksilleTab);
         paneeli.addTab("Tulokset", null, tulokset, "Tarkastele nykyisiä tai vanhoja tuloksia");
 
 
@@ -143,33 +116,11 @@ public class Graafinen extends JPanel {
         return paneeli;
     }
 
-    private JPanel luoPeliPaneeli() {
-        JPanel paneeli = new JPanel(new GridLayout(2, 1));
-        paneeli.add(new JLabel("suomi"));
-        paneeli.add(new JTextField("kirjoita tänne"));
-        return paneeli;
-    }
-
-    private JPanel luoSanalista() throws IOException {
-        JPanel paneeli = new JPanel();
-        paneeli.add(new JButton("Tulosta sanat"), BorderLayout.NORTH);
-
-
-        paneeli.add(new JTextPane());
-        return paneeli;
-    }
-
     private void nimenKyselyPopup() {
         final JFrame parent = new JFrame();
 
-        parent.pack();
-        parent.setVisible(true);
-
         nimi = JOptionPane.showInputDialog(parent, "Anna nimi", null);
         System.out.println(nimi);
-
-
-
     }
 
     public void windowClosing(WindowEvent e) {
@@ -194,8 +145,14 @@ public class Graafinen extends JPanel {
         } else {
             int n = JOptionPane.showConfirmDialog(frame, "Lisätäänkö sana " + fin + " = " + eng + "?", "Sanan lisäys", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                kayttoliittyma.lisaaSanat(fin, eng);
-                kayttoliittyma.kaynnista("tulosta");
+                if (kayttoliittyma.onkoListallaSananLisays(fin)) {
+                    JOptionPane.showMessageDialog(frame, "Sana on jo listalla!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Sana lisättiin listalle!");
+                    kayttoliittyma.lisaaSanat(fin, eng);
+                    kayttoliittyma.kaynnista("tulosta");
+                }
+
             }
 
         }
@@ -205,12 +162,25 @@ public class Graafinen extends JPanel {
         if (kayttoliittyma.tyhjaSana(fin)) {
             JOptionPane.showMessageDialog(frame, "Kirjoita jotakin, tyhjää sanaa ei voi poistaa!");
         } else {
-            int n = JOptionPane.showConfirmDialog(frame, "Poistetaanko sana " + fin+"?", "Sanan poisto", JOptionPane.YES_NO_OPTION);
+            int n = JOptionPane.showConfirmDialog(frame, "Poistetaanko sana " + fin + "?", "Sanan poisto", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
                 kayttoliittyma.poistaSana(fin);
                 kayttoliittyma.kaynnista("tulosta");
             }
+        }
+    }
 
+    public void peliPopup(String fin) {
+        if (fin.equals(kayttoliittyma.englantiSanaPeli(fin))) {
+            String asd = kayttoliittyma.englantiSanaPeli(fin);
+            System.out.println(asd);
+            JOptionPane.showMessageDialog(frame, "Oikein!");
+
+        } else {
+            JOptionPane.showMessageDialog(frame, "Väärin, " + fin + " on englanniksi " + kayttoliittyma.englantiSanaPeli(fin));
+            System.out.println("suomisana" + fin);
+            String asd = kayttoliittyma.englantiSanaPeli(fin);
+            System.out.println("eng" + asd);
         }
     }
 }
