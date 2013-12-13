@@ -19,7 +19,10 @@ public class Tulokset {
     private String kaikkiVastauksetLkm;
     private String kaikkiOikeinLkm;
     private String kaikkiVaarinLkm;
-
+    private int grOikeinLkm=0;
+    private int grVaarinLkm=0;
+    private int grYhteensaLkm=0;
+    
     /**
      * listaa oikein olevian tulosten lkm
      *
@@ -90,5 +93,29 @@ public class Tulokset {
 
     public void yhteensaTest(int i) {
         kuinkamontaoikein = i;
+    }
+    
+    public void lisaaOikein(){
+        grOikeinLkm++;
+    }
+    
+    public void lisaaVaarin(){
+        grVaarinLkm++;
+    }
+    
+    public void lisaaYht(){
+        grYhteensaLkm++;
+    }
+    
+    public int grOikeinLkm(){
+        return grOikeinLkm;
+    }
+    
+    public int grVaarLkm(){
+        return grVaarinLkm;
+    }
+    
+    public int grYhtLkm(){
+        return grYhteensaLkm;
     }
 }

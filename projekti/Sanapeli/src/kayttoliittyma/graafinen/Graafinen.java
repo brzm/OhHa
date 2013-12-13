@@ -35,6 +35,7 @@ public class Graafinen extends JPanel {
     private Sanalista sanalista;
     private NykyisetTulokset nykyisetTulokset;
     private VanhatTulokset vanhatTulokset;
+    private JTextArea textArea;
 
     public Graafinen() throws IOException {
         super(new GridLayout(1, 1));
@@ -110,7 +111,7 @@ public class Graafinen extends JPanel {
         JComponent tuloksetTab = vaihdaPaneelinTeksti("Katsele nykyisiä tai vanhoja vanhoja");
         JTabbedPane vaihtoehdotTuloksilleTab = new JTabbedPane();
         JComponent vanhatTuloksetPaneeli = vanhatTulokset.luoVanhatTulokset();
-        JComponent nykyisetTuloksetPaneeli = nykyisetTulokset.luoNykyisetTulokset();
+        JComponent nykyisetTuloksetPaneeli = luoNykyisetTulokset();
 
 
         vaihtoehdotTuloksilleTab.addTab("Vanhat tulokset", vanhatTuloksetPaneeli);
@@ -124,6 +125,36 @@ public class Graafinen extends JPanel {
         
 
     }
+    
+        private JPanel luoNykyisetTulokset() {
+        JPanel paneeli = new JPanel(new GridLayout(2, 1));
+        JButton nappi = new JButton("Tulosta");
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+
+        nappi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    textArea.append(nimi + "\n");
+                    textArea.append("Yhteensä " +kayttoliittyma.getYhtLkm() + "\n");
+                    textArea.append("Oikein "+kayttoliittyma.getVaarLkm() + "\n");
+                    textArea.append("Väärin "+kayttoliittyma.getVaarLkm() + "\n");
+                    System.out.println(nimi);
+                } catch (Exception xc) {
+                    System.out.println(xc);
+                }
+            }
+        });
+
+
+        paneeli.add(nappi);
+        paneeli.add(scrollPane);
+        return paneeli;
+        }
+    
 
     private JComponent vaihdaPaneelinTeksti(String teksti) {
         JPanel paneeli = new JPanel(false);

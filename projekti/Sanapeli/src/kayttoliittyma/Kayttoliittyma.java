@@ -383,14 +383,39 @@ public class Kayttoliittyma {
     }
 
     /**
-     * graafinen
-     * ruksia painaessa ottaa tulokset talteen
+     * graafinen ruksia painaessa ottaa tulokset talteen
+     *
      * @param nimi
      * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws IOException
      */
     public void ohjelmanLopetus(String nimi) throws FileNotFoundException, IOException {
         tiedostot.sanatTiedostoon();
         tiedostot.tallennaTulokset(nimi);
+    }
+
+    public void lisaaOikeinLkm() {
+        tulokset.lisaaOikein();
+    }
+
+    public int getOikeinLkm() {
+        System.out.println("oik" + tulokset.grOikeinLkm());
+        return tulokset.grOikeinLkm();
+    }
+
+    public void lisaaVaarinLkm() {
+        tulokset.lisaaVaarin();
+    }
+
+    public int getVaarLkm() {
+        return tulokset.grVaarLkm();
+    }
+
+    public void lisaaYhtLkm() {
+        tulokset.lisaaYht();
+    }
+
+    public int getYhtLkm() {
+        return tulokset.grYhtLkm();
     }
 }

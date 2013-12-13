@@ -57,8 +57,8 @@ public class TiedostotTest {
     public void samaHenkilo() throws FileNotFoundException { 
         ArrayList<String> lista = new ArrayList();
         lista.add("seppo");
-        lista.add("make");
-        lista.add("sepi");  //sisällä olevat metodit sekoittaa tämän, ilman niitä toimii
+        lista.add("0123456789");
+        lista.add("0123456789");  //sisällä olevat metodit sekoittaa tämän, ilman niitä toimii
         lista.add("--");
         tiedostot.annaListaTest(lista);
         String seppo = "seppo";

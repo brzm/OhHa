@@ -9,5 +9,7 @@ Graafinen toimii osin, vaikka ei taydellisesti. Jostain kumman syysta sanojen li
 Sanojen poisto poistaa kaikki uudet lisatyt sanat ja vanhoja ei voi poistaa XD
 Pelin suomeksi tuleva Jlabel ei tullut nakyviin ja piti kikkailla popupin kanssa.
 Muuttaminen netbeansin tekstiversiosta ei kaynyt ihan mallikkaasti ja piti vahan kikkailla.
+Heittaa kaikki arvot null, jos vaihtaa classia kesken, mika sinansa on vahan huono juttu jos ei nyt tee vain yhta jaatavan pitkaa classia.
 Naamailee perkeleesti tama graafinen malli.
 jar naamailee myos eika halua menna nimen kyselya pidemmalle.
+Tuossa nyt on vahan vaikeata tehda muita testeja kuin on valmiina, itse en ainakaan keksinyt.
