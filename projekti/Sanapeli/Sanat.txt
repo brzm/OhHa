@@ -1,8 +1,8 @@
-#Tue Dec 03 16:27:22 EET 2013
-kissa=cat
-suomi=finland
+#Fri Dec 13 18:29:39 EET 2013
+veitsi=knife
 omena=apple
 tietokone=computer
-veitsi=knife
+suomi=finland
 koira=dog
+kissa=cat
 lautanen=plate

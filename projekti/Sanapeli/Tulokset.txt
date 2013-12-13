@@ -1,4 +1,24 @@
-asd
+dsa
+Yhteensä 0
+Oikein   0
+Väärin   0
+-----------
+dsadasdas
+Yhteensä 0
+Oikein   0
+Väärin   0
+-----------
+<zx
+Yhteensä 0
+Oikein   0
+Väärin   0
+-----------
+
+Yhteensä 0
+Oikein   0
+Väärin   0
+-----------
+
 Yhteensä 15
 Oikein   5
 Väärin   28

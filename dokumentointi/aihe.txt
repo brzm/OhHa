@@ -1,8 +1,13 @@
 Sanakirjapeli eli suomeksi ja englanniksi sanoja, joita kaannetaan toiselle kielelle.
 Voi lisata sanoja. Tuloksia listataan tiedostoon.
 
-Main käynnistää graafisen käyttöliittymän, jossa on ohjeet. 
-Se taas käynnistää tekstikäyttöliittymän, joka hakee heti tiedostoista vanhat sanat ja tulokset.
-Peli kysyy sitten käyttäjän komentoa, ja toimii sen mukaan. 
+
+Ohjelman kaynnistyessa haetaan sanat ja tulokset tiedostosta.
+Teksti versiossa peli kysyy sitten käyttäjän komentoa, ja toimii sen mukaan. 
 Ohjelman lopetusvaiheessa tulokset ja mahdolliset uudet sanat kirjoitetaan talteen.
-Graafinen jäi puolitiehen eli jar ei toimi.
+Graafinen toimii osin, vaikka ei taydellisesti. Jostain kumman syysta sanojen lisays ei tule peliin mukaan, vaikka nakyy pelissa olevan mukana.
+Sanojen poisto poistaa kaikki uudet lisatyt sanat ja vanhoja ei voi poistaa XD
+Pelin suomeksi tuleva Jlabel ei tullut nakyviin ja piti kikkailla popupin kanssa.
+Muuttaminen netbeansin tekstiversiosta ei kaynyt ihan mallikkaasti ja piti vahan kikkailla.
+Naamailee perkeleesti tama graafinen malli.
+jar naamailee myos eika halua menna nimen kyselya pidemmalle.
