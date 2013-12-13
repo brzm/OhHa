@@ -2,3 +2,6 @@ yli 9000h
 14.11 graafisen vaantamista, ei oikein onnistu. saman nimen poisto tuloksista
 21.11 4h tallennuksen korjaus, sanan poisto
 28.11 4h graafisen muutto valilehtimuotoon
+11.12 5h graafinen sanalisays ja poisto
+12.12 5h graafisen tulokset, sanojen listaus
+13.12 5h graafinen pelin toiminta
